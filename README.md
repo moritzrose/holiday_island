@@ -15,26 +15,26 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
 
 ## Todos - short term:
 
-### generate a random height map
+### cut out tiles
+- annoying but necessary, the map tiles are in a tile collection, but it is way easier to use them when extracted into single files
+- if you have a better solution, I am more than open!
 
+### generate a random height map
 - based on factors e.g. max terrain level, hilliness, water, no water, etc.
 - based on a seed, I don't know much about procedural map generation, but if it makes sense, I want to implement it
 - one thing to keep in mind is, that there must not be any jumps > 1 vertically or horizontally, since the original
   tiles do not support that
 
 ### implement scrolling
-
 - implement the cursor
 - in the original game, you had to right click to move the window, I want to make it scrollable by moving the cursor to
   the edge of the window like every modern game building game
 
 ### hover effect
-
 - when hovering over the map, I want to see the outlines of the tile I am hovering over, this is going to get more
   important later
 
 ### terrain type
-
 - render the correct type of terrain - sand, water, grass - based on the current terrain level
   - 0 = water
   - 1 & 2 = sand
