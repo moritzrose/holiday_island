@@ -1,0 +1,26 @@
+OPTIONS
+Music
+Volume:
+Sound
+Volume:
+Speech
+Volume:
+Game Speed:
+News:
+Auctions
+New Properties
+Sabotage
+Congratulations
+Property marking:
+Owner
+Occupation
+Neutral
+Others:
+Annual Balance
+Auction waits
+Help on buttons
+Animations
+Disasters
+OK
+TOP
+CREDITS

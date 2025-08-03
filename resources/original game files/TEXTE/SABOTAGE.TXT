@@ -1,0 +1,57 @@
+Usable on:
+Cost:
+Piranhas
+SApiranh.bmp
+Put some piranhas in an opponent's pool.
+Pools
+50000
+    9   64   70  255  255  255
+Explosives
+Sabomb.bmp
+Try to destroy an opponent's property.
+All buildings
+200000
+  255  255  255  255  255  255
+Stink-Bomb
+sastink.bmp
+Place a Stink-Bomb in an opponents building.
+All buildings
+10000
+  255  255  255  255  255  255
+Shark diver
+sahai.bmp
+Send a diver to the beach with a shark's fin on his back. Scare the opponents' tourists!
+Ocean
+30000
+  255  255  255  255  255  255
+Rats
+saratte.bmp
+Send an opponent a plague of rats
+All buildings
+20000
+  255  255  255  255  255  255
+Soap
+saoelauf.bmp
+The competitor's planes go sliding to the end of the runway. Crash!
+Airports
+100000
+    9  255  255  255  255  255
+Construction
+sabau.bmp
+Bribe the workers to extend a property's construction time.
+Construction sites
+10000
+  255  255  255  255  255  255
+Bad-Mouth
+saruf.bmp
+Organise a smear campaign to damage someone's reputation.
+All buildings
+50000
+  255  255  255  255  255  255
+Roads
+sastrass.bmp
+Remove an opponent's road.
+Streets
+100000
+  255  255  255  255  255  255
+

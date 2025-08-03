@@ -1,0 +1,31 @@
+1  Demolish building first!
+2  Demolish street first!
+3  Too deep here!
+4  Maximum Height!
+5  Off the map!
+6  Off the map!
+7  Off the map!
+8  Off the map!
+9  Not enough money!
+10 Too steep here!
+11 You can't build on water!
+12 Terrain too difficult!
+13 Water too deep!
+14 Not enough money!
+15 Demolish bridge first!
+16 River in the way!
+17 Can only be built on sand!
+18 Can only be built on grass!
+19 Can only be built by the seaside!
+20 Can only be built on level ground!
+21 Can't be built!
+22 Off the map!
+23 It's not yours!
+24 No way!
+25 It's yours!
+26 Sabotage not possible here!
+27 There is a Palm-Tree here!
+28 Something's moving here!
+29 The spectators are protesting!
+30 in the way!
+31 Bridge not possible here!

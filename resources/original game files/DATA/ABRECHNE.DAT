@@ -1,0 +1,88 @@
+Sterne der Haeuser und Hotels: Verfall
+1   2   0   255
+ Angeschlossen
+1   2   0   180
+ Lage
+2   3   0   255
+Umgebungsqualitaet der Haeuser und Hotels: Inselqualitaet
+1   2   0   100
+ Inselsternqualitaet
+1   4   0   100
+ Ruf
+1   3   10   200
+ Werbung
+1   1   -7   7
+ Wirtschaft
+1   3   0   255
+Auslastung der Haeuser und Hotels: Mietniveau
+1   1   0   100
+ Umgebungsqualitaet
+2   3   0   100
+Sterne der uebrigen Gebaeude: Verfall
+1   2   0   255
+ Angeschlossen
+1   2   0   200
+ Lage
+1   2   0   255
+Umgebungsqualitaet der uebrigen Gebaeude, die Klassenweise gerechnet werden: Gaestedruck
+1   1   -100   100
+ KlassenGaestedruck
+1   1   -100   100
+ Ruf
+1   3   10   200
+ Werbung
+1   1   -7   7
+ Wirtschaft
+1   3   0   255
+Umgebungsqualitaet vom Rest: Gaestedruck
+1   3   -100   100
+ Ruf
+1   3   10   200
+ Werbung
+1   1   -7   7
+ Wirtschaft
+1   2   0   255
+Auslastung der Gebaeude, die kein Haus oder Hotel sind: Preisniveau
+1   1   0   100
+ Umgebungsqualitaet
+2   3   0   100
+Gesamtqualitaet einer Insel: Gruenqualitaet
+1   2   0   100
+ KommerzPreisniveau
+1   3   0   100
+ Freizeit
+1   5   0   100
+ Sport
+1   5   0   100
+ Natur
+1   5   0   100
+ Energie
+1   4   0   200
+ Wasser
+1   4   0   200
+ Muell
+1   4   0   200
+Klassenweise Qualitaet einer Insel: KommerzPreisniveau
+1   3   0   100
+ Gastronomie
+1   3   0   100
+ Shops
+1   3   0   100
+ Verleihe
+1   3   0   100
+Ruf eines Spielers: Preisniveau  {Funktioniert noch nicht}
+1  12   0   100
+ Kommerzplaetze
+1  12   0   100
+Weitere Konstanten:   MinMiete {Pro Kopf pro Monat}
+0
+ MaxMiete {Pro Kopf pro Monat}
+800
+ MinPreis : array[TKommerzsachen] {Preis pro Kunde am Tag *100 (Preis in Groschen)}
+   0    0    0   0   0   0     0   0   0   0 0
+ MaxPreis : array[TKommerzsachen]  {1000 entspricht hier 100 DM}
+2000 1000 1000  500 1000 100  200  4   4   4 0
+
+Reihenfolge der Kommerzsachen : Gastronomie, Shops, Auto, Sport, Freizeit, Natur, Transport,
+                                Energie, Wasser, Muell, keine;
+

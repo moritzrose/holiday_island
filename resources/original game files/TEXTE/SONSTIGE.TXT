@@ -1,0 +1,88 @@
+Waehrungsfaktor
+4
+_TXTSpielname_
+HOLIDAY ISLAND
+_TXTExitmenuueberschrift_
+QUIT HOLIDAY ISLAND?
+_TXTExitlabel_
+This will end your island session!
+_TXTok_
+OK
+_TXTAbbruch_
+Cancel
+_TXTWaehrung_
+£
+_TXTDateimenueueberschrift_
+FILE MENU
+_TXTLaden_
+Load
+_TXTSichern_
+Save
+_TXTNeuesSpiel_
+New game
+_TXTQuit_
+Quit
+_TXTSabotagemenuueberschrift_
+SABOTAGE
+_TXTSabotieren_
+Sabotage
+_TXTSchliessen_
+Close
+_TXTGeldmenueueberschrift_
+FINANCES
+_TXTMiete_
+Rent
+_TXTRenovieren_
+Renovate
+_TXTBestechen_
+Bribe
+_TXTVerkaufen_
+Sell
+_TXTIBin_
+in
+_TXTIBTagen_
+days
+_TXTGebaeudeuebersicht_
+Buildings-o-view
+_TXTKatastrophenschutz_
+Protection against disasters:
+_TXTKatastrophenschutzkosten_
+Cost per month:
+___ButtontoTextHilfetexte____
+File Menu
+Pause
+Options
+News
+Finances
+General Map
+Raise land
+Lower land
+Demolish building
+Houses
+Hotels
+Restaurants
+Shops
+Sports
+Attractions
+Parks & Palm trees
+Roads & Bridges
+Transportation
+Airports
+Harbours
+Energy
+Sabotage
+Info
+___Übersichtsmap Buttonhilfe____
+Ownership
+Building Types
+Quality
+Nature
+Occupation
+Desk
+Balance Sheet
+Money
+Property
+Tourists
+Reputation
+
+

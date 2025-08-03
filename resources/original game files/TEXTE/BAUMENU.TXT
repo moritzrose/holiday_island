@@ -1,0 +1,49 @@
+Baumenuueberschriften:
+HOUSES
+HOTELS
+RESTAURANTS
+SHOPS
+SPORTS
+ATTRACTIONS
+PARKS & PALM TREES
+Error !!!
+TRANSPORTATION
+AIRPORTS
+HARBOURS
+ENERGY
+Andere Baumenuetexte:
+Price:
+Constr. Time:
+Cost:
+£/m
+Capacity:
+tour./m
+Rent:
+Income:
+Close
+Build
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+Fehler !!!
+
+
+

@@ -1,0 +1,68 @@
+  IGMinLeere:TMapersteumrechnung=(
+         35  28  28  28  35  
+         31  31  31  31  31  
+         27  27  27  27  27  
+         22  22  22  22  22  
+         18  18  18  18  18
+  IGMinRadius:TMapersteumrechnung=
+         8  9  10  11  12  
+         8  9  10  11  12  
+         8  9  10  11  12  
+         8  9  10  11  12  
+         8  9  10  11  12
+  GIRadius:TMapersteumrechnung=
+         78  81  84  87  90
+         78  81  84  87  90  
+         78  81  84  87  90  
+         78  81  84  87  90
+         78  81  84  87  90
+  GILeere1:TMapersteumrechnung=
+         120  120  120  120  120  
+         110  110  110  110  110  
+         100  100  100  100  100  
+         90  90  90  90  90  
+         80  80  80  80  80
+  GILeere2:TMapersteumrechnung=
+         70  70  70  70  70
+         65  65  65  65  65  
+         60  60  60  60  60  
+         55  55  55  55  55  
+         50  50  50  50  50
+  ATAnzahl1:TMapersteumrechnung=
+         12  12  11  11  10  
+         19  23  26  30  33  
+         26  34  41  48  55
+         33  45  56  67  78  
+         40  55  70  85  100
+  ATAnzahl2:TMapersteumrechnung=
+          6   6   7   7   7  
+         15  18  22  25  28  
+         23  30  36  43  49  
+         32  41  51  60  69  
+         40  53  65  78  90
+  ATGroesse1:TMapersteumrechnung=
+         10  11  12  14  15  
+          8   9  10  12  13  
+          6   7   8   9  10  
+          4   5   6   7   8  
+          2   3   4   4   5
+  ATGroesse2:TMapersteumrechnung=
+         15  16  18  19  20  
+         12  13  15  16  17
+          9  10  12  13  14  
+          6   7   8   9  10  
+          3   4   5   6   7
+  ATVariation1:TMapersteumrechnung=
+         10  11  12  14  15  
+          9  12  14  17  19  
+          9  12  16  20  23  
+          8  13  17  22  26  
+          7  13  19  25  30
+  ATVariation2:TMapersteumrechnung=
+         10  11  12  14  15  
+         10  12  13  18  20  
+          9  13  17  21  25  
+          9  14  19  25  29  
+          8  15  21  28  34
+
+

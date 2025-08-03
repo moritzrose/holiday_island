@@ -40,6 +40,9 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
   - 1 & 2 = sand
   - above 2 = grass
 
+### rivers
+- there are river tiles, I don't know how or where to use them yet, so this is more of a "think about" todo
+
 ## Todos - long term
 
 ### add the UI elements

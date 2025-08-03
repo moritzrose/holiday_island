@@ -1,0 +1,85 @@
+ZeilenTexte : array[TIBZeilen,TIBTextart] of string =
+
+
+
+
+Construction site
+
+Owner:
+
+Income:
+£/m
+Costs:
+£/m
+Occupation:
+Tour.
+Occupation:
+
+Rent:
+£/w
+Price level:
+£
+Condition:
+%
+Completed
+
+Altitude:
+ft.
+ISLAND-INFORMATION
+
+Quality:
+%
+Guests:
+
+Size:
+
+*** Beschreibungstexte: ***
+Ocean
+Shore
+Grass
+Sand
+Grass/Sand
+Street on beach
+Street on grass
+Street on grass/beach
+Bridge
+River
+
+IBButtonzeile  :TIBButtonzeile =
+Text:
+
+Rent:
+Price:
+
+
+
+
+
+
+IBButton       :TIBButton =
+Text:
+Renovate
+
+
+Bribe
+Sell
+Cancel
+OK
+Island-Info
+Overview
+
+Kommerzsache To TagesPreisart:
+Prices:
+Prices:
+Prices:
+Prices:
+Entry:
+Entry:
+TAX:
+Prices:
+Prices:
+Prices:
+
+
+
+

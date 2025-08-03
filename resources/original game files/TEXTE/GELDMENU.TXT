@@ -1,0 +1,27 @@
+BText : array [TTextDing] of String[25] =
+Advertising:
+Cost per month:
+Automatic renovation:
+Insurance
+Borrow
+Pay off
+last year
+this year
+Income
+Houses:
+Hotels:
+Restaurants:
+Other Buildings:
+Expenditures
+Houses:
+Hotels:
+Restaurants:
+Other Buildings:
+New Buildings:
+Advertising:
+Interest:
+Other:
+Total Balance:
+Credit:
+Debts:
+Close

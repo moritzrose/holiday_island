@@ -1,0 +1,27 @@
+
+A game by:
+Start
+Colour:
+Opponents:
+Island Type:
+Atoll
+Group
+Large Island
+Terrain:
+flat
+hilly
+Land:
+little
+plenty
+Rivers:
+none
+several
+Name:
+Cancel
+Version: English
+Continue old game
+
+Scenarios
+Level:
+easy
+hard

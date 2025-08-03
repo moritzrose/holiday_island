@@ -1,0 +1,56 @@
+Land: (D=Deutschland, A=Amerika, F=Frankreich, E=England)
+E
+_MaxLageeinfluss_{Bitte nicht ‰ndern!}{Maximaler Radius, in dem die Lagequalitaetsmap bei einem Ereignis beeinfluﬂt wird}
+30
+_MaxGrueneinfluss_ {Bitte nicht ‰ndern!}{-"-}
+0
+_Renovierungskosten_
+5
+_Werbungskosten_
+5
+Kreditgroesse
+50000
+MaxSchulden
+1000000
+Zinssatz in Prozent im Jahr
+6
+Startgeld
+500000
+LandausWasserhebekosten
+100000
+Landhebekosten
+5000
+LandinWassersenkkosten
+20000
+Landsenkkosten
+5000
+Strassenabrisskosten
+1000
+Strassenbaukosten
+2000
+Palmenabrisskosten
+50
+Fundamentbaukosten
+1000
+Lebenshaltungskosten im Monat
+200
+Klassenmischungdivisor {Bitte nicht ‰ndern!}
+20
+Klassenmischung : array [ 0..BesteKlasse , 0..BesteKlasse ] of Integer {Bitte nicht ‰ndern!}
+   14     4     2     0     0     0     0     0     0     0
+    4    10     4     2     0     0     0     0     0     0
+    2     4     8     4     2     0     0     0     0     0
+    0     2     4     8     4     2     0     0     0     0
+    0     0     2     4     8     4     2     0     0     0
+    0     0     0     2     4     8     4     2     0     0
+    0     0     0     0     2     4     8     4     2     0
+    0     0     0     0     0     2     4     8     4     2
+    0     0     0     0     0     0     2     4    10     4
+    0     0     0     0     0     0     0     2     4    14
+Angeschlossendivisor{Bitte nicht ‰ndern!}
+10
+Angeschlossenumrechnung:array[-1..AbwoistStrassezuweitweg-1] of Byte{Bitte nicht ‰ndern!}
+0  100  100  80  55  30
+Verfallwahrscheinlichkeit : array [GAASchlaf..GAAKommerz2] of Byte { in Prozent: }
+25   25   25
+

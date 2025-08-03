@@ -1,0 +1,117 @@
+WelcheZeilen : array[TIBArt,TIBZeilen] of Boolean =
+ 1  0  0  1  1  1  1  0  1  0  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  1  0  1  0  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 1  0  0  1  1  1  0  1  0  1  1  0  0  0  0  0  0
+ 0  1  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0
+ 0  1  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0
+ 0  1  1  1  0  0  0  0  0  0  0  1  0  0  0  0  0
+ 0  0  0  0  0  0  0  0  0  0  0  0  0  1  1  1  1
+
+ZeilenLage : array[TIBZeilen,TIBZeilenlage] of Integer =
+   20    0    0    5  190    0    0    0  195
+   20    0    0    5  190    0    0    0  195
+   16    9   80    0    0    0    0    0   95
+   16    9   65   70  185    0    0    0  195
+   16    9   80  130  190   85  125    0  195
+   16    9   80  130  190   85  125    0  195
+   16    9   75   80  150  155  190    0  195
+   16    9   80   85  150  155  190    0  195
+   16    9   80  130  190   85  125    0  195
+   16    9   80  125  190   85  120    0  195
+   16    9   80   85  150    0    0    0  195
+   16    9   80   85  190    0    0    0  195
+   16    9   80   85  140  145  190    0  195
+   16    9  190    0    0    0    0    0  195
+   16    9   80   85  167  170  180    0  195
+   16    9   80   85  180  185  190    0  195
+   16    9   80   85  180  185  190    0  195
+
+MaxBoxbreite =
+  250
+
+MaxBoxHoehe =
+  216
+
+Textzentriert : array[TIBZeilen,TIBTextart2] of Boolean =
+ left  left cente
+ left  left cente
+cente  left right
+ left  left right
+ left right right
+ left right right
+ left  left right
+ left  left right
+ left right right
+ left right right
+ left  left right
+ left  left right
+ left  left right
+cente  left right
+ left  left right
+ left  left right
+ left  left right
+
+IBButtonzeile  :TIBButtonzeile = 0=False, 1=true
+  Breite Hoehe MitText Textlinks Textbreite MitWert Wertlinks Wertbreite
+  195    23    0       0         0          0       0         0
+  195    21    1       9         61         1       96        70
+  195    21    1       9         61         1       96        70
+  195    23    0       0         0          0       0         0
+  195    23    0       0         0          0       0         0
+  195    23    0       0         0          0       0         0
+  195    23    0       0         0          0       0         0
+  195    23    0       0         0          0       0         0
+
+IBButton       :TIBButton =   False= 0 , True=1
+  Links Breite Hoehe
+  102   83     19
+  77    16     16
+  169   16     16
+  56    83     19
+  10    83     19
+  10    83     19
+  102   83     19
+  10    83     19
+  10    83     19
+
+WelcheButton  :TWelcheButton=    False= 0 , True=1
+       1   0    0    0    1    0    0    0    0
+       0   1    1    0    0    0    0    0    0
+       0   1    1    0    0    0    0    0    0
+       0   0    0    1    0    0    0    0    0
+       0   0    0    0    0    0    1    0    1
+       0   0    0    0    1    0    0    0    0
+       0   0    0    0    0    0    1    1    0
+       0   0    0    0    0    0    1    0    0
+
+WelcheButtonzeile:  Art,Buttonzeile=  False= 0 , True=1
+       1   1   0   0    1   0    0   0
+       1   1   0   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       1   0   1   0    1   0    0   0
+       0   0   0   0    0   0    1   0
+       0   0   0   0    0   0    1   0
+       0   0   0   1    0   0    1   0
+       0   0   0   0    1   0    0   0
+
+  TIBArt =
+    (IBHotel,IBHaus,IBLokal,IBShop,IBSport,IBAttraktion,IBNatur,
+     IBVerleih,IBFlughafen,IBHafen,IBEnergie,IBStrasse,IBGround,IBBaustelle,IBInsel);
+  TIBButtonzeilenart = (IBBZRenovieren,IBBZMiete,IBBZBestechen,IBBZUnten,
+                        IBBZVerkaufen,IBBZFertig,IBBZNurOK);
+

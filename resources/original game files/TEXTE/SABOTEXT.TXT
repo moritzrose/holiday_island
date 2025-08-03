@@ -1,0 +1,6 @@
+TextSabotagemenueueberschrift:
+SABOTAGE
+Schliessen:
+Close
+Sabotieren:
+Sabotage

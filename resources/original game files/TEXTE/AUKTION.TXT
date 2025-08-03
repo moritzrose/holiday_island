@@ -1,0 +1,12 @@
+Auction
+Quit
+Keep bidding
+Present bid:
+by
+going...
+going...
+gone
+Start bidding:
+Sold!
+AUCTION
+Start

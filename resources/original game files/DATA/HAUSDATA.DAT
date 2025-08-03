@@ -1,0 +1,149 @@
+     2     2     1    15     5     0     0     1     0   100 kleiner Zeltplatz
+    14     2     3     4    10     0     0     2     1   100 einfache Hütte
+    42     6     3     6    16     0     0     2     1   100 kleiner Bungalow
+     7     1     2    50     6     2     0     0     0   104 Eis-Stand
+     7     1     2    50     8     2     0     0     0   104 Hot-Dog-Stand
+    30     1     4   100    45     2     0     0     1   104 Cocktailbar
+     2     2     1   100    10     4     0     2     0   100 Bolzplatz
+    10    10     1    50    40     4     0     2     0   100 Tennisplatz
+     5     5     1    50     5     6     3     2     0   108 Park mit Wasser
+    35     5     3   120    20     4     0     2     0   100 Swimmingpool
+    10    10     1   200    10     8     0     2     1   100 Fahrrad-Verleih
+     0     0     0     0     0    -1     0     0     0   100 Brücke
+     0     0     1     0     0    -1     0     2     8   106 Palme
+    90     3     5     8    22     0     0     2     1   100 großer Bungalow
+    90     3     5     8    22     0     0     2     1   100 großer Bungalow
+    90     3     5    10    35     0     0     2     1   100 kleine Villa
+    90     3     5    10    35     0     0     2     1   100 kleine Villa
+   120     4     5    12    45     0     2     2     1   100 Villa
+   180     6     5    16    55     0     2     2     1   100 Luxusvilla
+    30     1     4   100    40     2     0     2     1   104 Palmbar
+    30     1     4   100    15     2     0     2     1   104 Haifischbar
+     7     1     2   150     6     3     0     2     0   104 Kiosk
+    30     1     4   250    15     3     0     2     1   104 Laden
+    10    10     1    30    70     5     0     2     1    90 Hubschrauber-Landeplatz
+     2     2     1   100    20     5     0     0     0   100 Strandkörbe
+    90     3     5   200    30     2     0     2     1   104 Wc Donalds
+    21     3     3   400    30     8     0     2     1   100 Jeepverleih
+    28     4     3   400    50     8     0     2     1   100 Autosalon
+    60     2     5  1000   100    11     0     2     1    85 Müllkippe
+     1     1     0   600    20     5     1     2     0   100 Osterinsel
+     1     1     0   600    16     5     1     2     0   100 Stonehenge
+     1     1     0     0     0    -1     3     2     1    90 kleine Baustelle
+    60     2     5  1000   100    11     0     2     1    85 Kraftwerk
+    60     2     5  1000   100    11     0     2     1    95 Klaeranlage
+     2     2     1   150    12     5     0     0     0   100 BayWatch
+     1     1     0  3000    52     5     1     2     0   110 Freiheitsstatue
+     0     0     1     0     0    -1     3     0     0   100 Strandleben
+     1     1     0  2000    48     5     1     2     0   110 Schiefer Turm von Pisa
+   270     9     5   120    20     1     2     2     1   100 Hotel1
+   300    10     5   150    30     1     2     2     1   100 Hotel2
+    30     1     4   400    10     9     0     1     0    90 kl. oller Flughafen
+    30     1     4   400    10     9     0     1     0    90 kl. oller Flughafen
+    60     2     5   600    20     9     0     1     0    85 gr. oller Flughafen
+    60     2     5   600    20     9     0     1     0    85 gr. oller Flughafen
+    90     3     5   800    40     9     2     1     0    80 kl. normaler Flughafen
+    90     3     5   800    40     9     2     1     0    80 kl. normaler Flughafen
+   120     4     5  1200    50     9     2     1     0    75 gr. normaler Flughafen
+   120     4     5  1200    50     9     2     1     0    75 gr. normaler Flughafen
+   300    10     5  2000    70     9     2     1     0    70 kl. toller Flughafen
+   300    10     5  2000    70     9     2     1     0    70 kl. toller Flughafen
+   360     1     6  6000    90     9     2     1     0    65 gr. toller Flughafen
+   360     1     6  6000    90     9     2     1     0    65 gr. toller Flughafen
+     0     0     0     0     0    -1     0     0     0   100 MeeresBrücke
+   180     6     5   120    13     1     0     2     1   100 Zweitschlechtestes Hotel
+   150     5     5   100     6     1     0     2     1   100 Schlechtestes Hotel
+   390    13     5   140    42     1     2     2     1   100 Lila Hotel
+   420    14     5   150    55     1     2     2     1   100 Kings Hotel
+    30     1     4   100    60     3     0     2     1   100 Juwelier
+    10    10     1   100     8     4     0     0     0   100 Beachvolley
+     1     1     0    50     6     3     0     2     0   104 Stand
+     1     1     0  5000    56     5     1     2     0   110 Eifelturm
+    90     3     5   150    50     2     0     2     1   104 Funtaurant
+   180     6     5   200    60     2     2     2     1   104 Gourmettempel
+    90     3     5   600    10     3     0     2     1   100 Supermarkt
+    90     3     5   200    30     4     0     2     1   100 Freibad
+    60     2     5   200    30     4     0     2     1   100 Minigolf
+   180     6     5    24    40     1     2     2     1   100 Club Maritim
+   240     8     5    24    50     1     2     2     1   100 Jungle Club
+   300    10     5   900    20     3     2     2     1   100 Big Store
+   300    10     5   900    40     5     2     2     1   100 Zoo
+   120     4     5   300    40     4     2     2     1   100 Wasserpark
+    30     1     4   100    60     2     0     2     1   104 Champusbar
+    90     3     5   150    50     5     0     2     1   100 Spielhalle
+    90     3     5   200    60     5     0     2     1   100 Casino
+    90     3     5   200    40     5     0     2     1   100 Disco
+   120     4     5   100    60     5     0     2     1   100 Theater
+    18    18     1   100    20     6     0     2     0   110 Park 1B
+    28     4     3   150    30     6     0     2     0   116 Park 2A
+    28     4     3   200    40     6     0     2     0   118 Park 2B
+    35     5     3   250    50     6     0     2     0   125 Park 3A
+    35     5     3   300    60     6     0     2     0   130 Park 3B
+    30     1     4   400    10     9     3     1     0    90 kl. oller Flughafen
+    30     1     4   400    10     9     3     1     0    90 kl. oller Flughafen
+    90     3     5   800    40     9     3     1     0    80 kl. normaler Flughafen
+    90     3     5   800    40     9     3     1     0    80 kl. normaler Flughafen
+   300    10     5  2000    70     9     3     1     0    70 kl. toller Flughafen
+   300    10     5  2000    70     9     3     1     0    70 kl. toller Flughafen
+    18    18     1    75    15     6     0     2     0   109 Park 1C
+    14     2     3    50     5    10     0     4     4   100 Hafen 1
+    14     2     3    50     5    10     0     5     5   100 Hafen 1
+    14     2     3    50     5    10     0     6     6   100 Hafen 1
+    14     2     3    50     5    10     0     7     7   100 Hafen 1
+    21     3     3   100    10    10     0     4     4   100 Hafen 2
+    21     3     3   100    10    10     0     5     5   100 Hafen 2
+    21     3     3   100    10    10     0     6     6   100 Hafen 2
+    21     3     3   100    10    10     0     7     7   100 Hafen 2
+    28     4     3   200    20    10     0     4     4   100 Hafen 3
+    28     4     3   200    20    10     0     5     5   100 Hafen 3
+    28     4     3   200    20    10     0     6     6   100 Hafen 3
+    28     4     3   200    20    10     0     7     7   100 Hafen 3
+    35     5     3   400    30    10     2     4     4   100 Hafen 4
+    35     5     3   400    30    10     2     5     5   100 Hafen 4
+    35     5     3   400    30    10     2     6     6   100 Hafen 4
+    35     5     3   400    30    10     2     7     7   100 Hafen 4
+    60     2     5   800    40    10     2     4     4   100 Hafen 5
+    60     2     5   800    40    10     2     5     5   100 Hafen 5
+    60     2     5   800    40    10     2     6     6   100 Hafen 5
+    60     2     5   800    40    10     2     7     7   100 Hafen 5
+     1     1     0  2000    96     5     1     2     0   110 Sphinx
+    14     2     3   100     8     4     0     0     0   100 Surf-Verleih
+     1     1     0  1200    40     5     1     2     0   110 Big Ben
+     1     1     0    10     1     5     1     2     0   100 TennisWM leer
+     1     1     0  5000   100     5     1     2     0   150 TennisWM voll
+     1     1     0   100     1     5     1     0     0   100 SurfWM leer SO
+     1     1     0   100     1     5     1     0     0   100 SurfWM leer NO
+     1     1     0   100     1     5     1     0     0   100 SurfWM leer NW
+     1     1     0   100     1     5     1     0     0   100 SurfWM leer SW
+     1     1     0  3000   100     5     1     0     0   150 SurfWM voll SO
+     1     1     0  3000   100     5     1     0     0   150 SurfWM voll NO
+     1     1     0  3000   100     5     1     0     0   150 SurfWM voll NW
+     1     1     0  3000   100     5     1     0     0   150 SurfWM voll SW
+     1     1     0   100     1     5     1     2     0   100 MissHI leer SW
+     1     1     0   100     1     5     1     2     0   100 MissHI leer SO
+     1     1     0  1000   100     5     1     2     0   150 MissHI voll SW
+     1     1     0  1000   100     5     1     2     0   150 MissHI voll SO
+     1     1     0  1000    12     5     1     2     0   110 Pyramide
+     1     1     0  1500    50     5     1     2     0   110 Brandenburger Tor
+     1     1     0   300     0    11     0     2     1   100 Dummy
+     2     2     1   300     0    11     0     2     1   100 Dummy
+     1     1     0   300     0    11     0     2     1   100 Dummy
+     2     2     1   300     0    11     0     2     1   100 Dummy
+     1     1     0   300     0    11     0     2     1   100 Dummy
+     2     2     1   300     0    11     0     2     1   100 Dummy
+     1     1     0   300     0    11     0     2     1   100 Dummy
+     2     2     1   300     0    11     0     2     1   100 Dummy
+     1     1     0   300     0    11     0     2     1   100 Dummy
+Bau-  |Bau- |Bau- |Kapa-|Kate-|Ge-  |1=   |Bau- |Bau- |Verän
+zeit  |zeit |zeit-|zität|gorie|bäu- |Darf |bar- |bar- |derun
+in    |in   |ein- |     |(Ster|deart|nur  |keit |keit |g der
+Tagen |der  |heit |     | ne) |     |manch|(Un- |(Form|Lageq
+      |Ein- |     |     |     |     |mal  |ter- |)    |ualit
+      |heit |     |     |     |     |gebau|grund|     |ät
+      |  -->|     |     |     |     |t wer|)    |     |
+                                     den
+                                     2=
+                                     erst
+                                     später
+                                     3=gar
+                                     nicht

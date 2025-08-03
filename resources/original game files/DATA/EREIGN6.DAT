@@ -1,0 +1,49 @@
+   1100000      3802      3900         0         0    100000         7         0         0         0         0         0         SurfWm
+      1000       435       505         0        30     80000         9        10        11         0         1         0         AuktionStonehenge
+      1000      1165      1235         0        30    120000         0         1         2         0         1         0         Osterinseln
+      1000     16450     16750         0       100         0         5        38         0         0         2         0         Oelpest
+      1000      5123      5335         0        10         0         6        39         0         0         2         0         erdbeben
+   1100000      7425      7450         0         0    500000         8         0         0         0         0         0         tennismeister
+      1000     12992     13062         0        30   3000000        12        13        14         0         1         0         Eifelturm
+      1000      9361      9431         0        30   1600000        15        16        17         0         1         0         Freiheitsstatue
+      1000      5864      5934         0        30   1000000        18        19        20         0         1         0         Pias
+         0         0   1000000         0         5         0        21        41         0         0         5         0         Spieler verkauft haus
+         0         0   1000000         0         5         0        22        42         0         0         3         0         Spieler geht pleite
+       100       380       611         0        15         0        43        44         0         0         2         0         Sturmflut
+         0         0   1000000         0         0         0        45         0         0         0         4         0         Spieler erreicht geld 1
+         1         0   1000000         0         0         0        46         0         0         0         4         0         Spieler erreicht Urlauberzahl 1
+      1000      3200      3270         0        30    500000        59        60        61         0         1         0         Bigben
+      1000     11107     11177         0        30   2000000        50        51        52         0         1         0         Sphinx
+         0         0   1000000         0         0         0        45         0         0         0         4         0         Spieler erreicht geld 2
+         1         0   1000000         0         0         0        46         0         0         0         4         0         Spieler erreicht Urlauberzahl 2
+         0         0   1000000         0         0         0        45         0         0         0         4         0         Spieler erreicht geld 3
+         1         0   1000000         0         0         0        46         0         0         0         4         0         Spieler erreicht Urlauberzahl 3
+         0    111401       420         0         0         0        67         0         0        17         6         0         Neueshaus
+         0    113325      3340         0         0         0        68         0         0        18         6         0         Neueshaus
+         0    111770       780         0         0         0        69         0         0        38         6         0         Neueshaus
+         0    112250      2275         0         0         0        70         0         0        39         6         0         Neueshaus
+         0    114780      4800         0         0         0        71         0         0        55         6         0         Neueshaus
+         0    115875      5895         0         0         0        72         0         0        56         6         0         Neueshaus
+         0    111495      1515         0         0         0        73         0         0        66         6         0         Neueshaus
+         0    116240      6260         0         0         0        74         0         0        67         6         0         Neueshaus
+         0    111860      1880         0         0         0        75         0         0        68         6         0         Neueshaus
+         0    112955      3015         0         0         0        76         0         0        62         6         0         Neueshaus
+         0    114415      4435         0         0         0        77         0         0        69         6         0         Neueshaus
+         0    115145      5165         0         0         0        78         0         0        70         6         0         Neueshaus
+         0    111130      1150         0         0         0        79         0         0        44         6         0         Neueshaus
+         0    112590      2610         0         0         0        80         0         0        46         6         0         Neueshaus
+         0    113685      3705         0         0         0        81         0         0        48         6         0         Neueshaus
+         0    116605      6625         0         0         0        82         0         0        50         6         0         Neueshaus
+         0    114050      4070         0         0         0        83         0         0       100         6         0         Neueshaus
+         0    115510      5530         0         0         0        84         0         0       104         6         0         Neueshaus
+      1000      7089      7159         0        30   1200000        53        54        55         0         1         0         Pyramide
+      1000      4583      4653         0        30    700000        56        57        58         0         1         0         Branden
+    100000      2026      2100         0         0     50000        85         0         0         0         0         0         Miss Holiday
+         0         0         0         0         0         0         0         0         0         0         0         0         Waltauchtauf
+         0         0         0         0         0         0         0         0         0         0         0         0         Waltauchtauf
+         0         0         0         0         0         0         0         0         0         0         0         0         Waltauchtauf
+         0         0         0         0         0         0         0         0         0         0         0         0         Waltauchtauf
+         0         0         0         0         0         0         0         0         0         0         0         0         Waltauchtauf
+         0         0         0         0         0         0         0         0         0         0         0         0         Haivorküste
+
+     Warhrsch.   VonWann  BisWann   WieLanScho Dauer Mindestkost WelchNachV WelchNach WelchNachN WasPassiert typ      wer

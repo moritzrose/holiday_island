@@ -1,0 +1,2 @@
+UEText : array [TTextDing] of String[25] =
+GENERAL MAP
