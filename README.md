@@ -36,6 +36,9 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
 ### terrain type
 
 - render the correct type of terrain - sand, water, grass - based on the current terrain level
+  - 0 = water
+  - 1 & 2 = sand
+  - above 2 = grass
 
 ## Todos - long term
 
@@ -47,4 +50,5 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
 
 ### add the news window
 
+### add more terrain types, snow, rock, maybe volcanoes that can cause special events etc
 ### ...
