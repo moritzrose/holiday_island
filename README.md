@@ -6,8 +6,10 @@ adding my own personal flavour to my version of the game. I still want to keep t
 downloaded the game files (very easy nowadays) and started using the original tile set.
 
 So far, I did quite a bit of research on isometric game design and I am very proud to have build a small map
-generator, that renders the tiles based on a height map. If you check out the repo and run the MapGenerator, you can see
-the current state.
+generator, that renders the tiles based on a height map. There is no limit in terms of terrain levels, you can have 2 or
+200 - it only depends on a correctly formatted height map. Below is small example I generated - if you check out the
+repo, change the current height map I used (hardcoded for test purposes) and run the MapGenerator, you can play with it
+a little. Make sure there are no vertical or horizontal jumps > 1 though!
 
 ![img_1.png](img_1.png)
 
@@ -38,7 +40,11 @@ the current state.
 ## Todos - long term
 
 ### add the UI elements
+
 ### add the building functionality
+
 ### add terrain modifications
+
 ### add the news window
+
 ### ...
