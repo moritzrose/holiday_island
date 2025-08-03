@@ -29,6 +29,7 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
   tiles do not support that
 - I do not know yet if I want the maps always start on level 0 on the edges, or maybe start higher. It looks like a bowl if the map
   starts at 3 on the edges and instantly goes lower, so I got to figure that out
+![img.png](img.png)
 
 ### implement scrolling
 
