@@ -9,6 +9,8 @@ So far, I did quite a bit of research on isometric game design and I am very pro
 generator, that renders the tiles based on a height map. If you check out the repo and run the MapGenerator, you can see
 the current state.
 
+![img_1.png](img_1.png)
+
 ## Todos - short term:
 
 ### generate a random height map
@@ -40,7 +42,3 @@ the current state.
 ### add terrain modifications
 ### add the news window
 ### ...
-
-
-
-![img.png](img.png)
