@@ -13,7 +13,7 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
 
 ![img_1.png](img_1.png)
 
-## Todos - short term:
+## Todos - short term: tet
 
 ### cut out tiles
 
