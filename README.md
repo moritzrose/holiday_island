@@ -35,7 +35,7 @@ a little. Make sure there are no vertical or horizontal jumps > 1 though!
 
 - implement the cursor
 - in the original game, you had to right click to move the window, I want to make it scrollable by moving the cursor to
-  the edge of the window like every modern building game
+  the edge of the window like in every modern building game
 
 ### hover effect
 
