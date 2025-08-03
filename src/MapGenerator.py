@@ -100,6 +100,9 @@ height_map = [
 
 
 
+
+
+
 def grid_to_screen(grid_x, grid_y, tile_dimensions, terrain_level):
     width, height = tile_dimensions
     screen_x = 0.5 * (grid_x - grid_y) * width
