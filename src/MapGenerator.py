@@ -70,7 +70,6 @@ tile_definitions_sand = {
 }
 
 tile_definitions_sand_grass= {
-    "0000": { "sprite" :pygame.image.load("../resources/tiles/sand_grass/0000.png").convert_alpha()},
     "1-100": { "sprite" :pygame.image.load("../resources/tiles/sand_grass/1-100.png").convert_alpha()},
     "01-10": { "sprite" :pygame.image.load("../resources/tiles/sand_grass/01-10.png").convert_alpha()},
     "001-1": { "sprite" :pygame.image.load("../resources/tiles/sand_grass/001-1.png").convert_alpha()},
