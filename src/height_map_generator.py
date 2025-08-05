@@ -58,6 +58,3 @@ def generate_heightmap(h_tiles: int, v_tiles: int, max_height: int = 5):
             H[v][h] = value
 
     return H
-
-
-print(generate_heightmap(20,20, 5))
