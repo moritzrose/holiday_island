@@ -5,7 +5,10 @@ I loved it! That being said, I know the "mechanics" weren't the most realistic, 
 adding my own personal flavour to my version of the game. I still want to keep the original design - thus I have
 downloaded the game files (very easy nowadays) and started using the original tile set.
 
-If you want to see what I have achieved so far, I am adding screenshots to the end of this readme to document my progress.
+So far I can generate a random height map, change the possibility for certain terrain levels and render the map according to
+the generated map. I am very proud to be able to fully support all tiles of water, sand and grass depending on the current terrain level.
+
+You can check out what I have achieved so far at the end of this readme.
 
 ## Todos - short term:
 
@@ -37,12 +40,7 @@ If you want to see what I have achieved so far, I am adding screenshots to the e
 
 ### terrain type
 
-- render the correct type of terrain - sand, water, grass - based on the current terrain level
-    - 0 = water
-    - 1 & 2 = sand
-    - above 2 = grass
-
-- add terrain type variation tiles, if existent
+- add terrain type variation tiles - there are multiple tiles for plain grass for example; the goal is to have a certain probability to render certain variations
 
 ### rivers
 
