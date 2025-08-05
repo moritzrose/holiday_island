@@ -1,8 +1,8 @@
 import random
 
 # probabilities to change height depending on current height
-UP_PROB = [0.05, 0.8, 0.3, 0.4, 0.1, 0.0]
-DOWN_PROB = [0.0, 0.0, 0.0, 0.0, 0.7, 0.8]
+UP_PROB = [0.2, 0.8, 0.8, 0.1, 0.3, 0.0]
+DOWN_PROB = [0.0, 0.0, 0.1, 0.1, 0.2, 0.2]
 
 def generate_heightmap(h_tiles: int, v_tiles: int, max_height: int = 5):
 
