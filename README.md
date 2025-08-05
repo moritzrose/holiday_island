@@ -66,8 +66,8 @@ If you want to see what I have achieved so far, I am adding screenshots to the e
 ## Progress
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
-  <img src="progress/img_0.png" style="width: 200px;">
-  <img src="progress/img_1.png" style="width: 200px;">
-  <img src="progress/img_2.png" style="width: 200px;">
+  <img src="progress/img_0.png" style="width: 350px;">
+  <img src="progress/img_1.png" style="width: 350px;">
+  <img src="progress/img_2.png" style="width: 350px;">
 </div>
 
