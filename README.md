@@ -5,8 +5,8 @@ I loved it! That being said, I know the "mechanics" weren't the most realistic, 
 adding my own personal flavour to my version of the game. I still want to keep the original design - thus I have
 downloaded the game files (very easy nowadays) and started using the original tile set.
 
-So far I can generate a random height map, change the possibility for certain terrain levels and render the map according to
-the generated map. I am very proud to be able to fully support all tiles of water, sand and grass depending on the current terrain level.
+So far I can generate a random height map, change the possibility for certain terrain levels and render the tiles according to
+the generated map. I am very proud to be able to fully support all tiles - water, sand and grass - depending on the current terrain level.
 
 You can check out what I have achieved so far at the end of this readme.
 
