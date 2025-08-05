@@ -29,6 +29,10 @@ class App:
         # Map Generator
         self.map_generator = MapRenderer(MAP_WIDTH, MAP_HEIGHT)
 
+        # Camera
+        self.camera_x = 0
+        self.camera_y = 0
+        self.scroll_speed = 10
 
         self.running = True
 
