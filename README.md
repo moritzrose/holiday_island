@@ -64,6 +64,10 @@ If you want to see what I have achieved so far, I am adding screenshots to the e
 
 
 ## Progress
-![img_0.png](progress/img_0.png)
-![img_1.png](progress/img_1.png)
-![img_2.png](progress/img_2.png)
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+  <img src="progress/img_0.png" style="width: 200px;">
+  <img src="progress/img_1.png" style="width: 200px;">
+  <img src="progress/img_2.png" style="width: 200px;">
+</div>
+
