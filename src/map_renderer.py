@@ -4,7 +4,8 @@ import random
 from collections import Counter
 from height_map_generator import generate_heightmap
 
-REFERENCE_TILE_DIMENSION = 62, 32
+REFERENCE_TILE_DIMENSION_X = 62
+REFERENCE_TILE_DIMENSION_Y = 32
 MORE_SAND_SUFFIX = "S"
 
 # probabilites for tile variation - sum = 1
@@ -12,7 +13,6 @@ PROB_BASIC = 0.4
 PROB_A = PROB_BASIC + 0.3
 PROB_B = PROB_A + 0.2
 PROB_C = PROB_B + 0.1
-
 
 
 def grid_to_screen(grid_x, grid_y, tile_dimensions, terrain_level):
@@ -23,11 +23,10 @@ def grid_to_screen(grid_x, grid_y, tile_dimensions, terrain_level):
 
 
 def tile_variation(tile_id):
-
     # random number, 0-1
     random_number = random.random()
 
-    if  random_number < PROB_BASIC:
+    if random_number < PROB_BASIC:
         return tile_id
     elif random_number < PROB_A:
         return tile_id + "a"
@@ -64,7 +63,7 @@ class MapRenderer:
 
         self.tile_definitions_sand = {
 
-            #basic tiles
+            # basic tiles
             "0000": {"sprite": pygame.image.load("../resources/tiles/sand/basic/0000.png").convert_alpha()},
             "1-100": {"sprite": pygame.image.load("../resources/tiles/sand/basic/1-100.png").convert_alpha()},
             "01-10": {"sprite": pygame.image.load("../resources/tiles/sand/basic/01-10.png").convert_alpha()},
@@ -85,7 +84,7 @@ class MapRenderer:
             "-1-111": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-1-111.png").convert_alpha()},
             "-111-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-111-1.png").convert_alpha()},
 
-            #variation a
+            # variation a
             "0000a": {"sprite": pygame.image.load("../resources/tiles/sand/a/0000.png").convert_alpha()},
             "1-100a": {"sprite": pygame.image.load("../resources/tiles/sand/a/1-100.png").convert_alpha()},
             "01-10a": {"sprite": pygame.image.load("../resources/tiles/sand/a/01-10.png").convert_alpha()},
@@ -106,16 +105,16 @@ class MapRenderer:
             "-1-111a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-1-111.png").convert_alpha()},
             "-111-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-111-1.png").convert_alpha()},
 
-            #variation b
+            # variation b
             "0000b": {"sprite": pygame.image.load("../resources/tiles/sand/b/0000.png").convert_alpha()},
 
-            #variation c
+            # variation c
             "0000c": {"sprite": pygame.image.load("../resources/tiles/sand/c/0000.png").convert_alpha()},
         }
 
         self.tile_definitions_grass = {
 
-            #basic
+            # basic
             "0000": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0000.png").convert_alpha()},
             "1-100": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-100.png").convert_alpha()},
             "01-10": {"sprite": pygame.image.load("../resources/tiles/grass/basic/01-10.png").convert_alpha()},
@@ -136,7 +135,7 @@ class MapRenderer:
             "-1-111": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1-111.png").convert_alpha()},
             "-111-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-111-1.png").convert_alpha()},
 
-            #variation a
+            # variation a
             "0000a": {"sprite": pygame.image.load("../resources/tiles/grass/a/0000.png").convert_alpha()},
             "1-100a": {"sprite": pygame.image.load("../resources/tiles/grass/a/1-100.png").convert_alpha()},
             "01-10a": {"sprite": pygame.image.load("../resources/tiles/grass/a/01-10.png").convert_alpha()},
@@ -157,10 +156,10 @@ class MapRenderer:
             "-1-111a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-1-111.png").convert_alpha()},
             "-111-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-111-1.png").convert_alpha()},
 
-            #variation b
+            # variation b
             "0000b": {"sprite": pygame.image.load("../resources/tiles/grass/b/0000.png").convert_alpha()},
 
-            #variation c
+            # variation c
             "0000c": {"sprite": pygame.image.load("../resources/tiles/grass/c/0000.png").convert_alpha()},
         }
 
@@ -194,8 +193,14 @@ class MapRenderer:
         }
 
     def __init__(self, map_width, map_height):
+
+        # load height map and tiles
         self.height_map = generate_heightmap(map_width, map_height)
         self.load_tiles()
+
+        # Cache
+        self.rendered = False
+        self.render_cache = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
 
     def get_tile(self, x, y):
         # determine surrounding height values
@@ -205,8 +210,8 @@ class MapRenderer:
         bl = self.height_map[y + 1][x + 1]
 
         height_values = [tl, tr, br, bl]
-        min_height : int = min(height_values)
-        max_height : int = max(height_values)
+        min_height: int = min(height_values)
+        max_height: int = max(height_values)
 
         tile_id = str(tr - tl) + str(br - tr) + str(bl - br) + str(tl - bl)
 
@@ -236,15 +241,28 @@ class MapRenderer:
             tile_id = tile_variation(tile_id)
             return self.tile_definitions_grass.get(tile_id)
 
-    def render_tiles(self, screen, offset_x, offset_y):
-        # Map zeichnen
+    def render_tiles(self, screen):
+
+        if self.rendered:
+
+            # offset to have the world map surface centered
+            offset_x = self.render_cache.get_width() * -0.5
+            offset_y = self.render_cache.get_height() * -0.5
+
+            screen.blit(self.render_cache, (offset_x, offset_y))
+            return
+
+        # draw world map as one surface to avoid unnecessary rerendering of every single tile
         for y in range(len(self.height_map) - 1):
             for x in range(len(self.height_map[y]) - 1):
                 tile = self.get_tile(x, y)
                 terrain_level = self.height_map[y][x]
                 if tile:
                     image = tile.get("sprite")
-                    screen_x, screen_y = grid_to_screen(x, y, REFERENCE_TILE_DIMENSION, terrain_level)
-                    screen_x += offset_x
-                    screen_y += offset_y
-                    screen.blit(image, (screen_x, screen_y))
+                    screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y), terrain_level)
+
+                    # draw in the middle of the world map surface
+                    screen_x += self.render_cache.get_width() * 0.5
+                    self.render_cache.blit(image, (screen_x, screen_y))
+
+        self.rendered = True
