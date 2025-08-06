@@ -19,11 +19,20 @@ class App:
         # Create window
         pygame.display.set_caption("Holiday Island")
 
-      # Screen
+        # Mouse
+        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+        pygame.event.set_grab(True)
+
+        # Screen
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         # Map Generator
         self.map_generator = MapRenderer(MAP_WIDTH, MAP_HEIGHT)
+
+        # Camera
+        self.camera_x = 0
+        self.camera_y = 0
+        self.scroll_speed = 10
 
         self.running = True
 
@@ -49,6 +58,10 @@ class App:
 
             # update display
             pygame.display.update()
+
+            # cursor
+            pos = pygame.mouse.get_pos()
+            print(f"Mausposition: {pos}")
 
         pygame.quit()
 
