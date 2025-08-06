@@ -22,29 +22,26 @@ You can check out what I have achieved so far at the end of this readme.
 - I would like to make it:
   - based on factors e.g. max terrain level, hilliness, water, no water, etc.
   - based on a seed, I don't know much about procedural map generation, but if it makes sense, I want to implement it
+- the current height maps are too "noisy" meaning there are not enough flat areas to build on
 - one thing to keep in mind is, that there must not be any jumps > 1 vertically or horizontally, since the original
   tiles do not support that
 - I do not know yet if I want the maps to always start on level 0 on the edges, or maybe higher. It looks like a bowl if the map
   starts at 3 on the edges and instantly goes lower, so I got to figure that out
 
 ### implement scrolling
-
 - implement the cursor
-- in the original game, you had to right click to move the window, I want to make it scrollable by moving the cursor to
+- in the original game, you had to right-click to move the window, I want to make it scrollable by moving the cursor to
   the edge of the window like in every modern building game
 
 ### hover effect
-
 - when hovering over the map, I want to see the outlines of the tile I am hovering over, this is going to get more
   important later
 
 ### rendering
-
 - add terrain type variation tiles - there are multiple tiles for plain grass for example; the goal is to have a certain probability to render certain variations
-- cache mechanism to make the render process more efficient, also, I accidently implemented a tile variation disco, where the tiles switch between different variations every frame
+- map cache mechanism to make the render process more efficient, also, I accidentally implemented a tile variation disco, where the tiles switch between different variations every frame
 
 ### rivers
-
 - there are river tiles, I don't know how or where to use them yet, so this is more of a "think about" todo
 
 ## Todos - long term
