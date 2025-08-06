@@ -38,9 +38,10 @@ You can check out what I have achieved so far at the end of this readme.
 - when hovering over the map, I want to see the outlines of the tile I am hovering over, this is going to get more
   important later
 
-### terrain type
+### rendering
 
 - add terrain type variation tiles - there are multiple tiles for plain grass for example; the goal is to have a certain probability to render certain variations
+- cache mechanism to make the render process more efficient, also, I accidently implemented a tile variation disco, where the tiles switch between different variations every frame
 
 ### rivers
 
