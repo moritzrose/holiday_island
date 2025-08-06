@@ -23,18 +23,24 @@ def grid_to_screen(grid_x, grid_y, tile_dimensions, terrain_level):
 
 
 def tile_variation(tile_id):
+
     # random number, 0-1
     random_number = random.random()
 
-    if random_number < PROB_BASIC:
-        return tile_id
-    elif random_number < PROB_A:
-        return tile_id + "a"
-    elif random_number < PROB_B:
-        return tile_id + "b"
+    # more variations for 0000
+    if tile_id == "0000":
+        if random_number < PROB_BASIC:
+            return tile_id
+        elif random_number < PROB_A:
+            return tile_id + "a"
+        elif random_number < PROB_B:
+            return tile_id + "b"
+        else:
+            return tile_id + "c"
     else:
-        return tile_id + "c"
-
+        if random_number < 1 - PROB_A:
+            return tile_id + "a"
+        return tile_id
 
 class MapRenderer:
 
@@ -222,7 +228,6 @@ class MapRenderer:
         # if there is only sand, return sand tile
         elif max_height <= 2:
             tile_id = tile_variation(tile_id)
-
             return self.tile_definitions_sand.get(tile_id)
 
         # if there is sand and grass, return sand grass tile
