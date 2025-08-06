@@ -3,8 +3,8 @@ from map_renderer import MapRenderer
 
 
 # Configuration
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 1024
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 MAP_WIDTH = 200
 MAP_HEIGHT = 200
 BG = (50, 50, 50)
@@ -42,7 +42,7 @@ class App:
             self.screen.fill(BG)
 
             # render map
-            self.map_generator.render_tiles(self.screen, 600, 300)
+            self.map_generator.render_tiles(self.screen)
 
             # set frame rate
             clock.tick(60)
