@@ -38,8 +38,7 @@ You can check out what I have achieved so far at the end of this readme.
   important later
 
 ### rendering
-- add terrain type variation tiles - there are multiple tiles for plain grass for example; the goal is to have a certain probability to render certain variations
-- map cache mechanism to make the render process more efficient, also, I accidentally implemented a tile variation disco, where the tiles switch between different variations every frame
+ - add tile class
 
 ### rivers
 - there are river tiles, I don't know how or where to use them yet, so this is more of a "think about" todo
