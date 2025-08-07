@@ -1,12 +1,12 @@
 import pygame
 from map_renderer import MapRenderer
+from src.world_configuration import Config
 
-
-# Configuration
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+# world map tiles
 MAP_WIDTH = 200
 MAP_HEIGHT = 200
+
+# background colour
 BG = (50, 50, 50)
 DEBUG = False
 
@@ -24,15 +24,10 @@ class App:
         pygame.event.set_grab(True)
 
         # Screen
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.screen = pygame.display.set_mode((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT))
 
         # Map Generator
         self.map_generator = MapRenderer(MAP_WIDTH, MAP_HEIGHT)
-
-        # Camera
-        self.camera_x = 0
-        self.camera_y = 0
-        self.scroll_speed = 10
 
         self.running = True
 
@@ -41,6 +36,9 @@ class App:
         clock = pygame.time.Clock()
 
         while self.running:
+
+            # set frame rate
+            clock.tick(60)
 
             # event handler
             for event in pygame.event.get():
@@ -51,17 +49,10 @@ class App:
             self.screen.fill(BG)
 
             # render map
-            self.map_generator.render_tiles(self.screen)
-
-            # set frame rate
-            clock.tick(60)
+            self.map_generator.render_map(self.screen)
 
             # update display
             pygame.display.update()
-
-            # cursor
-            pos = pygame.mouse.get_pos()
-            print(f"Mausposition: {pos}")
 
         pygame.quit()
 

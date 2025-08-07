@@ -1,5 +1,6 @@
 import pygame
 import random
+from src.camera import Camera
 
 from collections import Counter
 from height_map_generator import generate_heightmap
@@ -204,9 +205,14 @@ class MapRenderer:
         self.height_map = generate_heightmap(map_width, map_height)
         self.load_tiles()
 
-        # Cache
-        self.rendered = False
-        self.render_cache = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
+        # render one surface consisting of all tiles, instead of every tile over and over
+        self.world_surface_rendered = False
+        self.world_surface = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
+
+        # Camera
+        start_pos_x = self.world_surface.get_width() * -0.5
+        start_pos_y = self.world_surface.get_height() * -0.5
+        self.camera = Camera(start_pos_x, start_pos_y)
 
     def get_tile(self, x, y):
         # determine surrounding height values
@@ -246,15 +252,16 @@ class MapRenderer:
             tile_id = tile_variation(tile_id)
             return self.tile_definitions_grass.get(tile_id)
 
-    def render_tiles(self, screen):
+    def render_map(self, screen):
 
-        if self.rendered:
+        if self.world_surface_rendered:
 
-            # offset to have the world map surface centered
-            offset_x = self.render_cache.get_width() * -0.5
-            offset_y = self.render_cache.get_height() * -0.5
+            # camera position on the world map surface
+            offset_x = self.camera.scroll.x
+            offset_y = self.camera.scroll.y
+            self.camera.update()
 
-            screen.blit(self.render_cache, (offset_x, offset_y))
+            screen.blit(self.world_surface, (offset_x, offset_y))
             return
 
         # draw world map as one surface to avoid unnecessary rerendering of every single tile
@@ -267,7 +274,7 @@ class MapRenderer:
                     screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y), terrain_level)
 
                     # draw in the middle of the world map surface
-                    screen_x += self.render_cache.get_width() * 0.5
-                    self.render_cache.blit(image, (screen_x, screen_y))
+                    screen_x += self.world_surface.get_width() * 0.5
+                    self.world_surface.blit(image, (screen_x, screen_y))
 
-        self.rendered = True
+        self.world_surface_rendered = True
