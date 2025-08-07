@@ -28,10 +28,8 @@ You can check out what I have achieved so far at the end of this readme.
 - I do not know yet if I want the maps to always start on level 0 on the edges, or maybe higher. It looks like a bowl if the map
   starts at 3 on the edges and instantly goes lower, so I got to figure that out
 
-### implement scrolling
-- implement the cursor
-- in the original game, you had to right-click to move the window, I want to make it scrollable by moving the cursor to
-  the edge of the window like in every modern building game
+### scrolling
+
 
 ### hover effect
 - when hovering over the map, I want to see the outlines of the tile I am hovering over, this is going to get more
