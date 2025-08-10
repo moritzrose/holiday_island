@@ -26,6 +26,8 @@ class HeightMapGenerator:
                 # add normalized value to height map
                 self.height_map[v][h] = height_value
 
+        self.flatten_jumps()
+
         werte = [val for row in self.height_map for val in row]  # flatten
         plt.hist(werte, bins=30)  # 30 Balken im Histogramm
         plt.title('Verteilung der Heightmap-Werte')
@@ -42,5 +44,21 @@ class HeightMapGenerator:
         elif normalized_noise_value <= 0.66: return 4
         elif normalized_noise_value <= 0.7: return 5
         elif normalized_noise_value <= 1.0: return 6
-    def flatten_jumps():
-        pass
+
+    # flattens height jumps > 1
+    def flatten_jumps(self):
+
+        for v in range(self.v_corners):
+            for h in range(self.h_corners):
+
+                height = self.height_map[v][h]
+                min_height = height - 1
+                max_height = min_height + 1
+
+                h_neighbour = self.height_map[v][h+1]
+                v_neighbour = self.height_map[v+1][h]
+                if h_neighbour > max_height or h_neighbour < min_height:
+                    clamp(self.height_map[v+1][h],min_height, max_height)
+
+                if v_neighbour > max_height or v_neighbour < min_height:
+                    clamp(self.height_map[v+1][h],min_height, max_height)
