@@ -7,3 +7,6 @@ class Config:
     # world map tiles
     MAP_WIDTH = 200
     MAP_HEIGHT = 200
+
+    # camera
+    CAMERA_SPEED = 10
