@@ -204,6 +204,7 @@ class MapRenderer:
         # load height map and tiles
         self.height_map_generator = HeightMapGenerator(map_width, map_height)
         self.height_map = self.height_map_generator.generate_heightmap()
+
         self.load_tiles()
 
         # render one surface consisting of all tiles, instead of every tile over and over
