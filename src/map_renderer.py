@@ -3,7 +3,7 @@ import random
 from src.camera import Camera
 
 from collections import Counter
-from height_map_generator import generate_heightmap
+from height_map_generator import HeightMapGenerator
 
 REFERENCE_TILE_DIMENSION_X = 62
 REFERENCE_TILE_DIMENSION_Y = 32
@@ -202,7 +202,8 @@ class MapRenderer:
     def __init__(self, map_width, map_height):
 
         # load height map and tiles
-        self.height_map = generate_heightmap(map_width, map_height)
+        self.height_map_generator = HeightMapGenerator(map_width, map_height)
+        self.height_map = self.height_map_generator.generate_heightmap()
         self.load_tiles()
 
         # render one surface consisting of all tiles, instead of every tile over and over
