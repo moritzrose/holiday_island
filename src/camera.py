@@ -13,7 +13,7 @@ class Camera:
         self.dy = 0
 
         # scrolling speed
-        self.speed = 8
+        self.speed = 15
 
     def update(self):
 

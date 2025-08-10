@@ -18,7 +18,7 @@ class HeightMapGenerator:
             for h in range(self.h_corners):
 
                 # calculate noise value
-                noise_val = pnoise2(h*0.05,v*0.05, octaves = 2, persistence = 0.8, base = 42)
+                noise_val = pnoise2(h*0.03,v*0.03, octaves = 15, persistence = 0.4, base = 42)
                 # normalize to interall 0 - 1
                 normalized_noise_val = (noise_val +1) * 0.5
                 # transform noise value to height value
@@ -37,12 +37,12 @@ class HeightMapGenerator:
         return self.height_map
 
     def transform_noise_to_height(self, normalized_noise_value: float):
-        if normalized_noise_value <= 0.5: return 0
+        if normalized_noise_value <= 0.51: return 0
         elif normalized_noise_value <= 0.53: return 1
-        elif normalized_noise_value <= 0.56: return 2
-        elif normalized_noise_value <= 0.61: return 3
-        elif normalized_noise_value <= 0.66: return 4
-        elif normalized_noise_value <= 0.7: return 5
+        elif normalized_noise_value <= 0.55: return 2
+        elif normalized_noise_value <= 0.6: return 3
+        elif normalized_noise_value <= 0.63: return 4
+        elif normalized_noise_value <= 0.75: return 5
         elif normalized_noise_value <= 1.0: return 6
 
     # flattens height jumps > 1
@@ -52,13 +52,24 @@ class HeightMapGenerator:
             for h in range(self.h_corners):
 
                 height = self.height_map[v][h]
-                min_height = height - 1
-                max_height = min_height + 1
+                min_height = max(height - 1,0)
+                max_height = min(height + 1,6)
 
-                h_neighbour = self.height_map[v][h+1]
-                v_neighbour = self.height_map[v+1][h]
-                if h_neighbour > max_height or h_neighbour < min_height:
-                    clamp(self.height_map[v+1][h],min_height, max_height)
+                if v < self.v_corners-1:
+                    v_neighbour = self.height_map[v+1][h]
+                    if v_neighbour > max_height or v_neighbour < min_height:
+                        v_neighbour = self.clamp(v_neighbour,min_height, max_height)
+                        self.height_map[v+1][h] = v_neighbour
+                if h < self.v_corners -1:
+                    h_neighbour = self.height_map[v][h+1]
+                    if h_neighbour > max_height or h_neighbour < min_height:
+                        h_neighbour = self.clamp(h_neighbour,min_height, max_height)
+                        self.height_map[v][h+1] = h_neighbour
 
-                if v_neighbour > max_height or v_neighbour < min_height:
-                    clamp(self.height_map[v+1][h],min_height, max_height)
+    def clamp(self, value, min_value, max_value):
+        if value < min_value:
+            return min_value
+        elif value > max_value:
+            return max_value
+        else:
+            return value

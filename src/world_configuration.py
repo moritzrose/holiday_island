@@ -1,4 +1,9 @@
 class Config:
 
-    SCREEN_WIDTH = 1024
+    # screen
+    SCREEN_WIDTH = 1440
     SCREEN_HEIGHT = 800
+
+    # world map tiles
+    MAP_WIDTH = 200
+    MAP_HEIGHT = 200

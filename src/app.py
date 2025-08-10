@@ -2,10 +2,6 @@ import pygame
 from map_renderer import MapRenderer
 from src.world_configuration import Config
 
-# world map tiles
-MAP_WIDTH = 200
-MAP_HEIGHT = 200
-
 # background colour
 BG = (50, 50, 50)
 DEBUG = False
@@ -27,7 +23,7 @@ class App:
         self.screen = pygame.display.set_mode((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT))
 
         # Map Generator
-        self.map_generator = MapRenderer(MAP_WIDTH, MAP_HEIGHT)
+        self.map_generator = MapRenderer(Config.MAP_WIDTH, Config.MAP_HEIGHT)
 
         self.running = True
 
