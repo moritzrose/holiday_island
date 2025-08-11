@@ -326,6 +326,8 @@ class MapRenderer:
                                                     terrain_level)
                 # draw in the middle of the world map surface
                 screen_x += self.terrain_surface.get_width() * 0.5
-                # center one tile horiontally
-                screen_x += REFERENCE_TILE_DIMENSION_X * 0.5
+                # center on tile (approximately)
+                screen_x += (REFERENCE_TILE_DIMENSION_X - image.get_width()) * 0.5
+                screen_y -= REFERENCE_TILE_DIMENSION_Y * 0.25
+
                 self.vegetation_surface.blit(image, (screen_x, screen_y))
