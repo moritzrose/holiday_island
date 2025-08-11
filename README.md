@@ -62,5 +62,11 @@ You can check out what I have achieved so far at the end of this readme.
   <img alt="" src="progress/img_0.png" style="width: 350px;">
   <img alt="" src="progress/img_1.png" style="width: 350px;">
   <img alt="" src="progress/img_2.png" style="width: 350px;">
+  <h4>with perlin noise</h4>
+  <img alt="" src="progress/img_3.png" style="width: 350px;">
+  <img alt="" src="progress/img_4.png" style="width: 350px;">
+  <img alt="" src="progress/img_5.png" style="width: 350px;">
+  <img alt="" src="progress/img_6.png" style="width: 350px;">
+  <img alt="" src="progress/img_7.png" style="width: 350px;">
 </div>
 
