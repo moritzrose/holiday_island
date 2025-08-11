@@ -4,6 +4,7 @@ from src.camera import Camera
 
 from collections import Counter
 from height_map_generator import HeightMapGenerator
+from src.gardener import grow_plants
 
 REFERENCE_TILE_DIMENSION_X = 62
 REFERENCE_TILE_DIMENSION_Y = 32
@@ -23,7 +24,7 @@ def grid_to_screen(grid_x, grid_y, tile_dimensions, terrain_level):
     return screen_x, screen_y
 
 
-def tile_variation(tile_id):
+def apply_variation(tile_id):
 
     # random number, 0-1
     random_number = random.random()
@@ -208,37 +209,36 @@ class MapRenderer:
         self.load_tiles()
 
         # render one surface consisting of all tiles, instead of every tile over and over
-        self.world_surface_rendered = False
-        self.world_surface = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
+        self.terrain_surface_rendered = False
+        self.terrain_surface = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
+        self.vegetation_surface_rendered = False
+        self.vegetation_surface = pygame.Surface((map_width * REFERENCE_TILE_DIMENSION_X , map_height * REFERENCE_TILE_DIMENSION_Y), pygame.SRCALPHA)
 
         # Camera
-        start_pos_x = self.world_surface.get_width() * -0.5
-        start_pos_y = self.world_surface.get_height() * -0.5
+        start_pos_x = self.terrain_surface.get_width() * -0.5
+        start_pos_y = self.terrain_surface.get_height() * -0.5
         self.camera = Camera(start_pos_x, start_pos_y)
 
-    def get_tile(self, x, y):
-        # determine surrounding height values
-        tl = self.height_map[y + 1][x]
-        tr = self.height_map[y][x]
-        br = self.height_map[y][x + 1]
-        bl = self.height_map[y + 1][x + 1]
+    def get_tile(self, height_values):
 
-        height_values = [tl, tr, br, bl]
+        # calculate min and max height value
+
         min_height: int = min(height_values)
         max_height: int = max(height_values)
 
-        tile_id = str(tr - tl) + str(br - tr) + str(bl - br) + str(tl - bl)
+        # calculate tile_id from height values
+        tile_id = self.calculate_tile_id(height_values)
 
-        # if there is any water, return water tile
+        # if the tile has any height values = 0, return water tile
         if min_height == 0:
             return self.tile_definitions_water.get(tile_id)
 
-        # if there is only sand, return sand tile
+        # if the tile has only height values <= 2, return sand tile
         elif max_height <= 2:
-            tile_id = tile_variation(tile_id)
+            tile_id = apply_variation(tile_id)
             return self.tile_definitions_sand.get(tile_id)
 
-        # if there is sand and grass, return sand grass tile
+        # if the tile has height values 1-3, return sand grass tile
         elif min_height <= 2 < max_height:
             # if it is a diagonal tile, determine variation
             if abs(max_height - min_height) > 1:
@@ -249,34 +249,62 @@ class MapRenderer:
 
             return self.tile_definitions_sand_grass.get(tile_id)
 
-        # return grass tile
+        # if the tile only has height values >= 3, return grass tile
         else:
-            tile_id = tile_variation(tile_id)
+            tile_id = apply_variation(tile_id)
             return self.tile_definitions_grass.get(tile_id)
 
-    def render_map(self, screen):
+    def calculate_tile_id(self, height_values):
+        tile_id = (
+                str(height_values[1] - height_values[0]) +  # tr - tl
+                str(height_values[2] - height_values[1]) +  # br - tr
+                str(height_values[2] - height_values[1]) +  # bl - br
+                str(height_values[2] - height_values[1])  # tl - bl
+        )
+        return tile_id
 
-        if self.world_surface_rendered:
+    def render_world(self, screen):
+
+        if self.terrain_surface_rendered:
 
             # camera position on the world map surface
             offset_x = self.camera.scroll.x
             offset_y = self.camera.scroll.y
             self.camera.update()
 
-            screen.blit(self.world_surface, (offset_x, offset_y))
+            screen.blit(self.terrain_surface, (offset_x, offset_y))
             return
 
         # draw world map as one surface to avoid unnecessary rerendering of every single tile
         for y in range(len(self.height_map) - 1):
             for x in range(len(self.height_map[y]) - 1):
-                tile = self.get_tile(x, y)
-                terrain_level = self.height_map[y][x]
-                if tile:
-                    image = tile.get("sprite")
-                    screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y), terrain_level)
 
-                    # draw in the middle of the world map surface
-                    screen_x += self.world_surface.get_width() * 0.5
-                    self.world_surface.blit(image, (screen_x, screen_y))
+                # determine corner height values
+                tl = self.height_map[y + 1][x]
+                tr = self.height_map[y][x]
+                br = self.height_map[y][x + 1]
+                bl = self.height_map[y + 1][x + 1]
+                height_values = [tl, tr, br, bl]
 
-        self.world_surface_rendered = True
+                self.render_terrain(height_values, x, y)
+                self.render_decoration(height_values, x, y)
+
+        self.terrain_surface_rendered = True
+
+    def render_terrain(self, height_values, x, y):
+        tile = self.get_tile(height_values)
+        terrain_level = self.height_map[y][x]
+        if tile:
+            image = tile.get("sprite")
+            screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
+                                                terrain_level)
+
+            # draw in the middle of the world map surface
+            screen_x += self.terrain_surface.get_width() * 0.5
+            self.terrain_surface.blit(image, (screen_x, screen_y))
+
+    def render_decoration(self, height_values, x, y):
+
+        # calculate tile_id from height values
+        tile_id = self.calculate_tile_id(height_values)
+        grow_plants(tile_id) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.

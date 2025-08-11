@@ -1,5 +1,5 @@
 import pygame
-from map_renderer import MapRenderer
+from world_renderer import MapRenderer
 from src.world_configuration import Config
 
 # background colour
@@ -45,7 +45,7 @@ class App:
             self.screen.fill(BG)
 
             # render map
-            self.map_generator.render_map(self.screen)
+            self.map_generator.render_world(self.screen)
 
             # update display
             pygame.display.update()
