@@ -25,8 +25,6 @@ You can check out what I have achieved so far at the end of this readme.
 - the current height maps are too "noisy" meaning there are not enough flat areas to build on
 - one thing to keep in mind is, that there must not be any jumps > 1 vertically or horizontally, since the original
   tiles do not support that
-- I do not know yet if I want the maps to always start on level 0 on the edges, or maybe higher. It looks like a bowl if the map
-  starts at 3 on the edges and instantly goes lower, so I got to figure that out
 
 ### scrolling
 
