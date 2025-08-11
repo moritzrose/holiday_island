@@ -49,8 +49,8 @@ def calculate_tile_id(height_values):
     tile_id = (
             str(height_values[1] - height_values[0]) +  # tr - tl
             str(height_values[2] - height_values[1]) +  # br - tr
-            str(height_values[2] - height_values[1]) +  # bl - br
-            str(height_values[2] - height_values[1])  # tl - bl
+            str(height_values[3] - height_values[2]) +  # bl - br
+            str(height_values[0] - height_values[3])  # tl - bl
     )
     return tile_id
 
@@ -317,12 +317,15 @@ class MapRenderer:
         # calculate tile_id from height values
         tile_id = calculate_tile_id(height_values)
         terrain_level = self.height_map[y][x]
-        plant = self.gardener.grow_plants(tile_id) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
-        plant_grows = plant is not None  # just because I can
-        if plant_grows:
-            image = plant.get("sprite")
-            screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
-                                                terrain_level)
-            # draw in the middle of the world map surface
-            screen_x += self.terrain_surface.get_width() * 0.5
-            self.vegetation_surface.blit(image, (screen_x, screen_y))
+        if terrain_level > 0:
+            plant = self.gardener.grow_plants(tile_id) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
+            plant_grows = plant is not None  # just because I can
+            if plant_grows:
+                image = plant.get("sprite")
+                screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
+                                                    terrain_level)
+                # draw in the middle of the world map surface
+                screen_x += self.terrain_surface.get_width() * 0.5
+                # center one tile horiontally
+                screen_x += REFERENCE_TILE_DIMENSION_X * 0.5
+                self.vegetation_surface.blit(image, (screen_x, screen_y))
