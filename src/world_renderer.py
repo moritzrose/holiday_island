@@ -1,5 +1,7 @@
 import pygame
 import random
+
+from src.asset_manager import load_water_tiles, load_sand_tiles, load_grass_tiles, load_sand_grass_tiles
 from src.camera import Camera
 
 from collections import Counter
@@ -57,160 +59,6 @@ def calculate_tile_id(height_values):
 
 class MapRenderer:
 
-    def load_tiles(self):
-        self.tile_definitions_water = {
-            "0000": {"sprite": pygame.image.load("../resources/tiles/water/0000.png").convert_alpha()},
-            "1-100": {"sprite": pygame.image.load("../resources/tiles/water/1-100.png").convert_alpha()},
-            "01-10": {"sprite": pygame.image.load("../resources/tiles/water/01-10.png").convert_alpha()},
-            "001-1": {"sprite": pygame.image.load("../resources/tiles/water/001-1.png").convert_alpha()},
-            "-1001": {"sprite": pygame.image.load("../resources/tiles/water/-1001.png").convert_alpha()},
-            "10-10": {"sprite": pygame.image.load("../resources/tiles/water/10-10.png").convert_alpha()},
-            "-1010": {"sprite": pygame.image.load("../resources/tiles/water/-1010.png").convert_alpha()},
-            "010-1": {"sprite": pygame.image.load("../resources/tiles/water/010-1.png").convert_alpha()},
-            "0-101": {"sprite": pygame.image.load("../resources/tiles/water/0-101.png").convert_alpha()},
-            "100-1": {"sprite": pygame.image.load("../resources/tiles/water/100-1.png").convert_alpha()},
-            "-1100": {"sprite": pygame.image.load("../resources/tiles/water/-1100.png").convert_alpha()},
-            "0-110": {"sprite": pygame.image.load("../resources/tiles/water/0-110.png").convert_alpha()},
-            "00-11": {"sprite": pygame.image.load("../resources/tiles/water/00-11.png").convert_alpha()},
-            "1-11-1": {"sprite": pygame.image.load("../resources/tiles/water/1-11-1.png").convert_alpha()},
-            "-11-11": {"sprite": pygame.image.load("../resources/tiles/water/-11-11.png").convert_alpha()},
-            "11-1-1": {"sprite": pygame.image.load("../resources/tiles/water/11-1-1.png").convert_alpha()},
-            "1-1-11": {"sprite": pygame.image.load("../resources/tiles/water/1-1-11.png").convert_alpha()},
-            "-1-111": {"sprite": pygame.image.load("../resources/tiles/water/-1-111.png").convert_alpha()},
-            "-111-1": {"sprite": pygame.image.load("../resources/tiles/water/-111-1.png").convert_alpha()},
-        }
-
-        self.tile_definitions_sand = {
-
-            # basic tiles
-            "0000": {"sprite": pygame.image.load("../resources/tiles/sand/basic/0000.png").convert_alpha()},
-            "1-100": {"sprite": pygame.image.load("../resources/tiles/sand/basic/1-100.png").convert_alpha()},
-            "01-10": {"sprite": pygame.image.load("../resources/tiles/sand/basic/01-10.png").convert_alpha()},
-            "001-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/001-1.png").convert_alpha()},
-            "-1001": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-1001.png").convert_alpha()},
-            "10-10": {"sprite": pygame.image.load("../resources/tiles/sand/basic/10-10.png").convert_alpha()},
-            "-1010": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-1010.png").convert_alpha()},
-            "010-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/010-1.png").convert_alpha()},
-            "0-101": {"sprite": pygame.image.load("../resources/tiles/sand/basic/0-101.png").convert_alpha()},
-            "100-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/100-1.png").convert_alpha()},
-            "-1100": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-1100.png").convert_alpha()},
-            "0-110": {"sprite": pygame.image.load("../resources/tiles/sand/basic/0-110.png").convert_alpha()},
-            "00-11": {"sprite": pygame.image.load("../resources/tiles/sand/basic/00-11.png").convert_alpha()},
-            "1-11-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/1-11-1.png").convert_alpha()},
-            "-11-11": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-11-11.png").convert_alpha()},
-            "11-1-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/11-1-1.png").convert_alpha()},
-            "1-1-11": {"sprite": pygame.image.load("../resources/tiles/sand/basic/1-1-11.png").convert_alpha()},
-            "-1-111": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-1-111.png").convert_alpha()},
-            "-111-1": {"sprite": pygame.image.load("../resources/tiles/sand/basic/-111-1.png").convert_alpha()},
-
-            # variation a
-            "0000a": {"sprite": pygame.image.load("../resources/tiles/sand/a/0000.png").convert_alpha()},
-            "1-100a": {"sprite": pygame.image.load("../resources/tiles/sand/a/1-100.png").convert_alpha()},
-            "01-10a": {"sprite": pygame.image.load("../resources/tiles/sand/a/01-10.png").convert_alpha()},
-            "001-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/001-1.png").convert_alpha()},
-            "-1001a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-1001.png").convert_alpha()},
-            "10-10a": {"sprite": pygame.image.load("../resources/tiles/sand/a/10-10.png").convert_alpha()},
-            "-1010a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-1010.png").convert_alpha()},
-            "010-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/010-1.png").convert_alpha()},
-            "0-101a": {"sprite": pygame.image.load("../resources/tiles/sand/a/0-101.png").convert_alpha()},
-            "100-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/100-1.png").convert_alpha()},
-            "-1100a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-1100.png").convert_alpha()},
-            "0-110a": {"sprite": pygame.image.load("../resources/tiles/sand/a/0-110.png").convert_alpha()},
-            "00-11a": {"sprite": pygame.image.load("../resources/tiles/sand/a/00-11.png").convert_alpha()},
-            "1-11-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/1-11-1.png").convert_alpha()},
-            "-11-11a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-11-11.png").convert_alpha()},
-            "11-1-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/11-1-1.png").convert_alpha()},
-            "1-1-11a": {"sprite": pygame.image.load("../resources/tiles/sand/a/1-1-11.png").convert_alpha()},
-            "-1-111a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-1-111.png").convert_alpha()},
-            "-111-1a": {"sprite": pygame.image.load("../resources/tiles/sand/a/-111-1.png").convert_alpha()},
-
-            # variation b
-            "0000b": {"sprite": pygame.image.load("../resources/tiles/sand/b/0000.png").convert_alpha()},
-
-            # variation c
-            "0000c": {"sprite": pygame.image.load("../resources/tiles/sand/c/0000.png").convert_alpha()},
-        }
-
-        self.tile_definitions_grass = {
-
-            # basic
-            "0000": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0000.png").convert_alpha()},
-            "1-100": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-100.png").convert_alpha()},
-            "01-10": {"sprite": pygame.image.load("../resources/tiles/grass/basic/01-10.png").convert_alpha()},
-            "001-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/001-1.png").convert_alpha()},
-            "-1001": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1001.png").convert_alpha()},
-            "10-10": {"sprite": pygame.image.load("../resources/tiles/grass/basic/10-10.png").convert_alpha()},
-            "-1010": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1010.png").convert_alpha()},
-            "010-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/010-1.png").convert_alpha()},
-            "0-101": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0-101.png").convert_alpha()},
-            "100-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/100-1.png").convert_alpha()},
-            "-1100": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1100.png").convert_alpha()},
-            "0-110": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0-110.png").convert_alpha()},
-            "00-11": {"sprite": pygame.image.load("../resources/tiles/grass/basic/00-11.png").convert_alpha()},
-            "1-11-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-11-1.png").convert_alpha()},
-            "-11-11": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-11-11.png").convert_alpha()},
-            "11-1-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/11-1-1.png").convert_alpha()},
-            "1-1-11": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-1-11.png").convert_alpha()},
-            "-1-111": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1-111.png").convert_alpha()},
-            "-111-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-111-1.png").convert_alpha()},
-
-            # variation a
-            "0000a": {"sprite": pygame.image.load("../resources/tiles/grass/a/0000.png").convert_alpha()},
-            "1-100a": {"sprite": pygame.image.load("../resources/tiles/grass/a/1-100.png").convert_alpha()},
-            "01-10a": {"sprite": pygame.image.load("../resources/tiles/grass/a/01-10.png").convert_alpha()},
-            "001-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/001-1.png").convert_alpha()},
-            "-1001a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-1001.png").convert_alpha()},
-            "10-10a": {"sprite": pygame.image.load("../resources/tiles/grass/a/10-10.png").convert_alpha()},
-            "-1010a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-1010.png").convert_alpha()},
-            "010-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/010-1.png").convert_alpha()},
-            "0-101a": {"sprite": pygame.image.load("../resources/tiles/grass/a/0-101.png").convert_alpha()},
-            "100-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/100-1.png").convert_alpha()},
-            "-1100a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-1100.png").convert_alpha()},
-            "0-110a": {"sprite": pygame.image.load("../resources/tiles/grass/a/0-110.png").convert_alpha()},
-            "00-11a": {"sprite": pygame.image.load("../resources/tiles/grass/a/00-11.png").convert_alpha()},
-            "1-11-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/1-11-1.png").convert_alpha()},
-            "-11-11a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-11-11.png").convert_alpha()},
-            "11-1-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/11-1-1.png").convert_alpha()},
-            "1-1-11a": {"sprite": pygame.image.load("../resources/tiles/grass/a/1-1-11.png").convert_alpha()},
-            "-1-111a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-1-111.png").convert_alpha()},
-            "-111-1a": {"sprite": pygame.image.load("../resources/tiles/grass/a/-111-1.png").convert_alpha()},
-
-            # variation b
-            "0000b": {"sprite": pygame.image.load("../resources/tiles/grass/b/0000.png").convert_alpha()},
-
-            # variation c
-            "0000c": {"sprite": pygame.image.load("../resources/tiles/grass/c/0000.png").convert_alpha()},
-        }
-
-        self.tile_definitions_sand_grass = {
-            "1-100": {"sprite": pygame.image.load("../resources/tiles/sand_grass/1-100.png").convert_alpha()},
-            "01-10": {"sprite": pygame.image.load("../resources/tiles/sand_grass/01-10.png").convert_alpha()},
-            "001-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/001-1.png").convert_alpha()},
-            "-1001": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-1001.png").convert_alpha()},
-            "10-10": {"sprite": pygame.image.load("../resources/tiles/sand_grass/10-10.png").convert_alpha()},
-            "-1010": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-1010.png").convert_alpha()},
-            "010-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/010-1.png").convert_alpha()},
-            "0-101": {"sprite": pygame.image.load("../resources/tiles/sand_grass/0-101.png").convert_alpha()},
-            "100-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/100-1.png").convert_alpha()},
-            "-1100": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-1100.png").convert_alpha()},
-            "0-110": {"sprite": pygame.image.load("../resources/tiles/sand_grass/0-110.png").convert_alpha()},
-            "00-11": {"sprite": pygame.image.load("../resources/tiles/sand_grass/00-11.png").convert_alpha()},
-            "1-11-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/1-11-1.png").convert_alpha()},
-            "-11-11": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-11-11.png").convert_alpha()},
-
-            # diagonal tiles more grass
-            "1-1-11": {"sprite": pygame.image.load("../resources/tiles/sand_grass/1-1-11.png").convert_alpha()},
-            "11-1-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/11-1-1.png").convert_alpha()},
-            "-1-111": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-1-111.png").convert_alpha()},
-            "-111-1": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-111-1.png").convert_alpha()},
-
-            # diagonal tiles more sand
-            "1-1-11S": {"sprite": pygame.image.load("../resources/tiles/sand_grass/1-1-11S.png").convert_alpha()},
-            "11-1-1S": {"sprite": pygame.image.load("../resources/tiles/sand_grass/11-1-1S.png").convert_alpha()},
-            "-1-111S": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-1-111S.png").convert_alpha()},
-            "-111-1S": {"sprite": pygame.image.load("../resources/tiles/sand_grass/-111-1S.png").convert_alpha()},
-        }
-
     def __init__(self, map_width, map_height):
 
         # load height map and tiles
@@ -218,8 +66,12 @@ class MapRenderer:
         self.height_map = self.height_map_generator.generate_heightmap()
 
         # load tile surfaces
-        self.load_tiles()
+        self.water_tiles = load_water_tiles()
+        self.sand_tiles = load_sand_tiles()
+        self.sand_grass_tiles = load_sand_grass_tiles()
+        self.grass_tiles = load_grass_tiles()
 
+        # needs rerender?
         self.world_is_clean = False
 
         # render one surface consisting of all tiles, instead of every tile over and over
@@ -247,12 +99,12 @@ class MapRenderer:
 
         # if the tile has any height values = 0, return water tile
         if min_height == 0:
-            return self.tile_definitions_water.get(tile_id)
+            return self.water_tiles.get(tile_id)
 
         # if the tile has only height values <= 2, return sand tile
         elif max_height <= 2:
             tile_id = apply_variation(tile_id)
-            return self.tile_definitions_sand.get(tile_id)
+            return self.sand_tiles.get(tile_id)
 
         # if the tile has height values 1-3, return sand grass tile
         elif min_height <= 2 < max_height:
@@ -263,12 +115,12 @@ class MapRenderer:
                 if dominant_height < 3:
                     tile_id = tile_id + MORE_SAND_SUFFIX
 
-            return self.tile_definitions_sand_grass.get(tile_id)
+            return self.sand_grass_tiles.get(tile_id)
 
         # if the tile only has height values >= 3, return grass tile
         else:
             tile_id = apply_variation(tile_id)
-            return self.tile_definitions_grass.get(tile_id)
+            return self.grass_tiles.get(tile_id)
 
     def render_world(self, screen):
 

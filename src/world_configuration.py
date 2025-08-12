@@ -10,3 +10,6 @@ class Config:
 
     # camera
     CAMERA_SPEED = 10
+
+    # vegetation
+    PLANT_PROB = 0.15
