@@ -1,5 +1,8 @@
 class Config:
 
+    # debug
+    SHOW_HEIGHT_MAP_DISTRIBUTION = False
+
     # screen
     SCREEN_WIDTH = 1440
     SCREEN_HEIGHT = 800

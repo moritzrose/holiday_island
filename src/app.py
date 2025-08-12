@@ -4,7 +4,7 @@ from src.world_configuration import Config
 
 # background colour
 BG = (50, 50, 50)
-DEBUG = False
+
 
 class App:
     def __init__(self):
