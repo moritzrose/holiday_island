@@ -1,19 +1,23 @@
 import pygame
-from world_configuration import Config
+from src.game_configuration import CAMERA_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
+from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+
 
 class Camera:
-    def __init__(self, start_x, start_y):
-        self.width = Config.SCREEN_WIDTH
-        self.height = Config.SCREEN_HEIGHT
+    def __init__(self):
 
-        self.scroll = pygame.Vector2(start_x,start_y)
+        # position camera in the middle of the terrain_surface
+        start_pos_x = MAP_WIDTH * REFERENCE_TILE_WIDTH * -0.5
+        start_pos_y = MAP_HEIGHT * REFERENCE_TILE_HEIGHT * -0.5
+
+        self.scroll = pygame.Vector2(start_pos_x,start_pos_y)
 
         # movement chunks in x and y
         self.dx = 0
         self.dy = 0
 
         # scrolling speed
-        self.speed = Config.CAMERA_SPEED
+        self.speed = CAMERA_SPEED
 
     def update(self):
 
@@ -21,17 +25,17 @@ class Camera:
         mouse_pos_y = pygame.mouse.get_pos()[1]
 
         # horizontal edge
-        if mouse_pos_x > 0.97 * self.width:
+        if mouse_pos_x > 0.97 * SCREEN_WIDTH:
             self.dx = -self.speed
-        elif mouse_pos_x < 0.03 * self.width:
+        elif mouse_pos_x < 0.03 * SCREEN_WIDTH:
             self.dx = self.speed
         else:
             self.dx = 0
 
         # vertical edge
-        if mouse_pos_y > 0.97 * self.height:
+        if mouse_pos_y > 0.97 * SCREEN_HEIGHT:
             self.dy = -self.speed
-        elif mouse_pos_y < 0.03 * self.height:
+        elif mouse_pos_y < 0.03 * SCREEN_HEIGHT:
             self.dy = self.speed
         else:
             self.dy = 0

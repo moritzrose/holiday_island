@@ -1,6 +1,7 @@
 from noise import pnoise2
-from src.world_configuration import Config
 import matplotlib.pyplot as plt
+
+from src.game_configuration import WORLD_SEED, SHOW_HEIGHT_DISTRIBUTION
 
 
 def transform_noise_to_height(normalized_noise_value: float):
@@ -43,18 +44,22 @@ class HeightMapGenerator:
 
         for v in range(self.v_corners):
             for h in range(self.h_corners):
+
                 # calculate noise value
-                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=Config.WORLD_SEED)
-                # normalize to interall 0 - 1
+                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=WORLD_SEED)
+
+                # normalize noise value to interval 0 - 1
                 normalized_noise_val = (noise_val + 1) * 0.5
+
                 # transform noise value to height value
                 height_value = transform_noise_to_height(normalized_noise_val)
-                # add normalized value to height map
+
+                # add height value to height map
                 self.height_map[v][h] = height_value
 
         self.flatten_jumps()
 
-        if Config.SHOW_HEIGHT_MAP_DISTRIBUTION:
+        if SHOW_HEIGHT_DISTRIBUTION:
             self.show_height_distribution()
 
         return self.height_map
@@ -80,6 +85,7 @@ class HeightMapGenerator:
                         h_neighbour = clamp(h_neighbour, min_height, max_height)
                         self.height_map[v][h + 1] = h_neighbour
 
+    # helper method to show height distribution statistic
     def show_height_distribution(self):
         werte = [val for row in self.height_map for val in row]  # flatten
         plt.hist(werte, bins=30)  # 30 Balken im Histogramm

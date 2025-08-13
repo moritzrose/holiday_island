@@ -1,7 +1,9 @@
 # i could have implemented this logic into the tile class, but I wanted a gardener
 import random
 from src.asset_manager import load_plants
-from src.world_configuration import Config
+from src.game_configuration import PLANT_PROB
+from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+
 
 class Gardener:
 
@@ -9,15 +11,15 @@ class Gardener:
         self.plants = load_plants()
         self.greenhouse = dict()
 
-    def grow_plants(self, tile_id, grid_x, grid_y):
+    def grow_plants(self, tile_id, world_x, world_y):
         number = random.random()
 
         # if the terrain is not suitable or the random number too high, do not plant anything
-        if tile_id != "0000" or number > Config.PLANT_PROB:
+        if tile_id != "0000" or number > PLANT_PROB:
             return None
 
         # give every plant the same probability depending on the general vegetation probability
-        even_divider = 1 / len(self.plants) * Config.PLANT_PROB
+        even_divider = 1 / len(self.plants) * PLANT_PROB
         plant = None
 
         if number <= even_divider * 1:
@@ -42,5 +44,13 @@ class Gardener:
             plant = "bush"
 
         # add plant and coordinates to the greenhouse to keep track "grid_x, grid_y" : "bush
-        self.greenhouse[f"{grid_x},{grid_y}"] = plant
+        self.place_in_greenhouse(world_x, world_y, plant)
+
         return self.plants.get(plant)
+
+    def get_plant_info(self, grid_x, grid_y):
+        return self.greenhouse.get(f"{grid_x},{grid_y}")
+
+    def place_in_greenhouse(self, grid_x, grid_y, plant):
+        # use grid coordinates as key
+        self.greenhouse[f"{grid_x * REFERENCE_TILE_WIDTH},{grid_y * REFERENCE_TILE_HEIGHT}"] = plant
