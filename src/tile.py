@@ -1,4 +1,3 @@
-from src.gardener import grow_plants
 
 
 class Tile:
@@ -10,6 +9,5 @@ class Tile:
         self.grid_y = grid_y
 
         self.is_dirty = False
-        # 
-        self.vegetation = grow_plants(tile_id)
+        #
         self.building = None

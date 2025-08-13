@@ -137,44 +137,44 @@ class MapRenderer:
             return
 
         # draw world map as one surface to avoid unnecessary rerendering of every single tile
-        for y in range(len(self.height_map) - 1):
-            for x in range(len(self.height_map[y]) - 1):
+        for grid_y in range(len(self.height_map) - 1):
+            for grid_x in range(len(self.height_map[grid_y]) - 1):
 
                 # determine corner height values
-                tl = self.height_map[y + 1][x]
-                tr = self.height_map[y][x]
-                br = self.height_map[y][x + 1]
-                bl = self.height_map[y + 1][x + 1]
+                tl = self.height_map[grid_y + 1][grid_x]
+                tr = self.height_map[grid_y][grid_x]
+                br = self.height_map[grid_y][grid_x + 1]
+                bl = self.height_map[grid_y + 1][grid_x + 1]
                 height_values = [tl, tr, br, bl]
 
-                self.render_terrain(height_values, x, y)
-                self.render_decoration(height_values, x, y)
+                self.render_terrain(height_values, grid_x, grid_y)
+                self.render_decoration(height_values, grid_x, grid_y)
 
         self.world_is_clean = True
 
-    def render_terrain(self, height_values, x, y):
+    def render_terrain(self, height_values, grid_x, grid_y):
         tile = self.get_tile(height_values)
-        terrain_level = self.height_map[y][x]
+        terrain_level = self.height_map[grid_y][grid_x]
         if tile:
             image = tile.get("sprite")
-            screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
+            screen_x, screen_y = grid_to_screen(grid_x, grid_y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
                                                 terrain_level)
 
             # draw in the middle of the world map surface
             screen_x += self.terrain_surface.get_width() * 0.5
             self.terrain_surface.blit(image, (screen_x, screen_y))
 
-    def render_decoration(self, height_values, x, y):
+    def render_decoration(self, height_values, grid_x, grid_y):
 
         # calculate tile_id from height values
         tile_id = calculate_tile_id(height_values)
-        terrain_level = self.height_map[y][x]
+        terrain_level = self.height_map[grid_y][grid_x]
         if terrain_level > 0:
-            plant = self.gardener.grow_plants(tile_id,x,y) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
+            plant = self.gardener.grow_plants(tile_id, grid_x, grid_y) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
             plant_grows = plant is not None  # just because I can
             if plant_grows:
                 image = plant.get("sprite")
-                screen_x, screen_y = grid_to_screen(x, y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
+                screen_x, screen_y = grid_to_screen(grid_x, grid_y, (REFERENCE_TILE_DIMENSION_X, REFERENCE_TILE_DIMENSION_Y),
                                                     terrain_level)
                 # draw in the middle of the world map surface
                 screen_x += self.terrain_surface.get_width() * 0.5

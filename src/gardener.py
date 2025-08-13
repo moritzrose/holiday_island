@@ -1,4 +1,4 @@
-# i could have implemented this logic into the tile class, but I wanted a gardener, cause I wanted one
+# i could have implemented this logic into the tile class, but I wanted a gardener
 import random
 from src.asset_manager import load_plants
 from src.world_configuration import Config
@@ -9,7 +9,7 @@ class Gardener:
         self.plants = load_plants()
         self.greenhouse = dict()
 
-    def grow_plants(self, tile_id,x,y):
+    def grow_plants(self, tile_id, grid_x, grid_y):
         number = random.random()
 
         # if the terrain is not suitable or the random number too high, do not plant anything
@@ -41,6 +41,6 @@ class Gardener:
         else:
             plant = "bush"
 
-        # add plant to the greenhouse
-        self.greenhouse[f"{x},{y}"] = plant
+        # add plant and coordinates to the greenhouse to keep track "grid_x, grid_y" : "bush
+        self.greenhouse[f"{grid_x},{grid_y}"] = plant
         return self.plants.get(plant)
