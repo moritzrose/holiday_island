@@ -170,7 +170,7 @@ class MapRenderer:
         tile_id = calculate_tile_id(height_values)
         terrain_level = self.height_map[y][x]
         if terrain_level > 0:
-            plant = self.gardener.grow_plants(tile_id) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
+            plant = self.gardener.grow_plants(tile_id,x,y) #TODO hier weiter machen, Tile instanziieren, Tile speichern usw.
             plant_grows = plant is not None  # just because I can
             if plant_grows:
                 image = plant.get("sprite")

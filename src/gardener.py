@@ -7,32 +7,40 @@ class Gardener:
 
     def __init__(self):
         self.plants = load_plants()
+        self.greenhouse = dict()
 
-    def grow_plants(self, tile_id):
+    def grow_plants(self, tile_id,x,y):
         number = random.random()
+
+        # if the terrain is not suitable or the random number too high, do not plant anything
         if tile_id != "0000" or number > Config.PLANT_PROB:
             return None
+
         # give every plant the same probability depending on the general vegetation probability
         even_divider = 1 / len(self.plants) * Config.PLANT_PROB
+        plant = None
 
         if number <= even_divider * 1:
-            return self.plants.get("bush")
+            plant = "palm1"
         elif number <= even_divider * 2:
-            return self.plants.get("palm1")
+            plant = "palm2"
         elif number <= even_divider * 3:
-            return self.plants.get("palm2")
+            plant = "palm3"
         elif number <= even_divider * 4:
-            return self.plants.get("palm3")
+            plant = "palm4"
         elif number <= even_divider * 5:
-            return self.plants.get("palm4")
+            plant = "palm5"
         elif number <= even_divider * 6:
-            return self.plants.get("palm5")
+            plant = "palm6"
         elif number <= even_divider * 7:
-            return self.plants.get("palm6")
+            plant = "palm7"
         elif number <= even_divider * 8:
-            return self.plants.get("palm7")
+            plant = "palm8"
         elif number <= even_divider * 9:
-            return self.plants.get("palm8")
+            plant = "palm9"
         else:
-            return self.plants.get("palm9")
+            plant = "bush"
 
+        # add plant to the greenhouse
+        self.greenhouse[f"{x},{y}"] = plant
+        return self.plants.get(plant)
