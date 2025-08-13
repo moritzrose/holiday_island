@@ -3,6 +3,9 @@ class Config:
     # debug
     SHOW_HEIGHT_MAP_DISTRIBUTION = False
 
+    # seed
+    WORLD_SEED = 42
+
     # screen
     SCREEN_WIDTH = 1440
     SCREEN_HEIGHT = 800

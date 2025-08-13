@@ -1,4 +1,3 @@
-import random
 from noise import pnoise2
 from src.world_configuration import Config
 import matplotlib.pyplot as plt
@@ -21,6 +20,15 @@ def transform_noise_to_height(normalized_noise_value: float):
         return 6
 
 
+def clamp(value, min_value, max_value):
+    if value < min_value:
+        return min_value
+    elif value > max_value:
+        return max_value
+    else:
+        return value
+
+
 class HeightMapGenerator:
 
     def __init__(self, h_tiles, v_tiles):
@@ -36,7 +44,7 @@ class HeightMapGenerator:
         for v in range(self.v_corners):
             for h in range(self.h_corners):
                 # calculate noise value
-                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=42)
+                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=Config.WORLD_SEED)
                 # normalize to interall 0 - 1
                 normalized_noise_val = (noise_val + 1) * 0.5
                 # transform noise value to height value
@@ -64,21 +72,13 @@ class HeightMapGenerator:
                 if v < self.v_corners - 1:
                     v_neighbour = self.height_map[v + 1][h]
                     if v_neighbour > max_height or v_neighbour < min_height:
-                        v_neighbour = self.clamp(v_neighbour, min_height, max_height)
+                        v_neighbour = clamp(v_neighbour, min_height, max_height)
                         self.height_map[v + 1][h] = v_neighbour
                 if h < self.v_corners - 1:
                     h_neighbour = self.height_map[v][h + 1]
                     if h_neighbour > max_height or h_neighbour < min_height:
-                        h_neighbour = self.clamp(h_neighbour, min_height, max_height)
+                        h_neighbour = clamp(h_neighbour, min_height, max_height)
                         self.height_map[v][h + 1] = h_neighbour
-
-    def clamp(self, value, min_value, max_value):
-        if value < min_value:
-            return min_value
-        elif value > max_value:
-            return max_value
-        else:
-            return value
 
     def show_height_distribution(self):
         werte = [val for row in self.height_map for val in row]  # flatten
