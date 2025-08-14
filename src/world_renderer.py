@@ -67,14 +67,14 @@ class WorldRenderer:
         # needs rerender?
         self.world_is_clean = False
 
-        # initialize terrain surface to rerender all tiles at once
+        # initialize terrain surface to render all tiles on
         self.terrain_surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
                                               pygame.SRCALPHA)
 
         # vegetation
         self.gardener = service_registry.gardener
         self.vegetation_surface_rendered = False
-        # initialize vegetation surface to rerender all plants at once
+        # initialize vegetation surface to render all plants on
         self.vegetation_surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
                                                  pygame.SRCALPHA)
 
@@ -125,8 +125,8 @@ class WorldRenderer:
             offset_x = self.camera.scroll.x
             offset_y = self.camera.scroll.y
 
-            self.screen.blit(self.terrain_surface, (offset_x, offset_y))
-            self.screen.blit(self.vegetation_surface, (offset_x, offset_y))
+            self.screen.blit(self.terrain_surface, (-offset_x, -offset_y))
+            self.screen.blit(self.vegetation_surface, (-offset_x, -offset_y))
             return
 
         # draw world map as one surface to avoid unnecessary rerendering of every single tile
@@ -159,7 +159,7 @@ class WorldRenderer:
             world_y -= terrain_level * 9
 
             # draw in the middle of the world map surface
-            world_x += self.terrain_surface.get_width() * 0.5
+            world_x += self.terrain_surface.get_width() * 0.5 - REFERENCE_TILE_WIDTH * 0.5
             self.terrain_surface.blit(image, (world_x, world_y))
 
     def render_vegetation(self, height_values, grid_x, grid_y):
@@ -182,7 +182,7 @@ class WorldRenderer:
                 world_y -= terrain_level * 9
 
                 # adjust to offset of the world map surface
-                world_x += self.terrain_surface.get_width() * 0.5
+                world_x += self.terrain_surface.get_width() * 0.5 - REFERENCE_TILE_WIDTH * 0.5
 
                 # center on tile (approximately)
                 world_x += (REFERENCE_TILE_WIDTH - image.get_width()) * 0.5
