@@ -1,6 +1,6 @@
 # debug
 SHOW_HEIGHT_DISTRIBUTION = False
-SHOW_INFO_BOX = False
+SHOW_INFO_BOX = True
 
 # seed
 WORLD_SEED = 42

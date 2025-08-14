@@ -1,8 +1,8 @@
-# i could have implemented this logic into the tile class, but I wanted a gardener
+# I could have implemented this logic into the tile class, but I wanted a gardener
 import random
 from src.asset_manager import load_plants
 from src.game_configuration import PLANT_PROB
-from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+from src.utils import world_to_tile
 
 
 class Gardener:
@@ -11,7 +11,7 @@ class Gardener:
         self.plants = load_plants()
         self.greenhouse = dict()
 
-    def grow_plants(self, tile_id, world_x, world_y):
+    def grow_plants(self, tile_id, tile_x, tile_y):
         number = random.random()
 
         # if the terrain is not suitable or the random number too high, do not plant anything
@@ -44,13 +44,16 @@ class Gardener:
             plant = "bush"
 
         # add plant and coordinates to the greenhouse to keep track "grid_x, grid_y" : "bush
-        self.place_in_greenhouse(world_x, world_y, plant)
+        self.place_in_greenhouse(tile_x, tile_y, plant)
 
         return self.plants.get(plant)
 
-    def get_plant_info(self, grid_x, grid_y):
-        return self.greenhouse.get(f"{grid_x},{grid_y}")
+    def get_plant_info(self, world_x, world_y):
 
-    def place_in_greenhouse(self, grid_x, grid_y, plant):
+        tile_x, tile_y = world_to_tile(world_x, world_y)
+
+        return self.greenhouse.get(f"{tile_x},{tile_y}")
+
+    def place_in_greenhouse(self, tile_x, tile_y, plant):
         # use grid coordinates as key
-        self.greenhouse[f"{grid_x * REFERENCE_TILE_WIDTH},{grid_y * REFERENCE_TILE_HEIGHT}"] = plant
+        self.greenhouse[f"{tile_x},{tile_y}"] = plant

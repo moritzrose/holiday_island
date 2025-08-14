@@ -1,31 +1,30 @@
 # transformation matrix
+import math
+
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 
 # watch this if you want to understand https://www.youtube.com/watch?v=04oQ2jOUjkU
-A = 0.5
-B = -0.5
-C = 0.5
-D = 0.5
+A = 0.5 * REFERENCE_TILE_WIDTH
+B = -0.5 * REFERENCE_TILE_WIDTH
+C = 0.5 * REFERENCE_TILE_HEIGHT
+D = 0.5 * REFERENCE_TILE_HEIGHT
 
 
-# I used this less optimized representation, to show A B C and D and understand the inverse calculation
-def grid_to_world(grid_x, grid_y):
-
+def tile_to_world(tile_x, tile_y):
     # calculate screen coordinates
-    world_x = (A * grid_x + B * grid_y) * REFERENCE_TILE_WIDTH
-    world_y = (C * grid_x + D * grid_y) * REFERENCE_TILE_HEIGHT
+    world_x = (A * tile_x + B * tile_y)
+    world_y = (C * tile_x + D * tile_y)
 
     return world_x, world_y
 
 
-def world_to_grid(world_x, world_y):
-
+def world_to_tile(world_x, world_y):
     # determinant
     determinant = 1 / (A * D - B * C)
 
+    # calculate tile coordinates - need to round down cause tile_x = 0.9 is still tile_x = 0
+    tile_x = math.floor(determinant * (D * world_x - B * world_y) - 100)
+    tile_y = math.floor(determinant * (-C * world_x + A * world_y) + 100)
+    # I do not know why I need the 100/-100 ... it works ... my head hurts ... it happens to be 200 / 2 with 200 being the number of tiles I have in x and y direction ... coincident?
 
-    # calculate grid coordinates
-    grid_x = determinant * (D * world_x - B * world_y) * REFERENCE_TILE_WIDTH
-    grid_y = determinant * (-C * grid_x + A * world_y) * REFERENCE_TILE_HEIGHT
-
-    return grid_x, grid_y
+    return tile_x, tile_y

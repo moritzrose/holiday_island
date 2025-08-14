@@ -1,7 +1,7 @@
 import pygame
 
 from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX
-from src.utils import world_to_grid
+from src.utils import world_to_tile
 
 
 class Cursor:
@@ -19,10 +19,6 @@ class Cursor:
         self.world_x = None
         self.world_y = None
 
-        # grid coordinates calculated from screen coordinates
-        self.grid_x = None
-        self.grid_y = None
-
         # camera, to calculate world coordinates
         self.camera = service_registry.camera
 
@@ -38,10 +34,8 @@ class Cursor:
         self.screen_y = pygame.mouse.get_pos()[1]
 
         # calculate world coordinates from camera offset
-        self.world_x = self.camera.scroll.x + self.screen_x
-        self.world_y = self.camera.scroll.y + self.screen_y
-
-        self.grid_x, self.grid_y = world_to_grid(self.world_x, self.world_y)
+        self.world_x = self.camera.position_world.x + self.screen_x
+        self.world_y = self.camera.position_world.y + self.screen_y
 
         if SHOW_INFO_BOX:
             self.show_infobox()
@@ -53,18 +47,15 @@ class Cursor:
         screen_coordinates = (self.screen_x, self.screen_y)
 
         # world coordinates
-        world_coordinates = None
-
-        # grid coordinates
-        grid_coordinates = (self.grid_x, self.grid_y)
+        world_coordinates = (self.world_x, self.world_y)
 
         # ask gardener
-        vegetation_info = self.gardener.get_plant_info(self.grid_x, self.grid_y)
+        vegetation_info = self.gardener.get_plant_info(self.world_x, self.world_y)
 
         # ask architect
         building_info = None # TODO ask architect
 
         # show info
         print(f"screen coordinates: {screen_coordinates}\n"
-              f"grid coordiantes: {grid_coordinates}\n"
+              f"world coordinates: {world_coordinates}\n"
               f"vegetation info: {vegetation_info}")

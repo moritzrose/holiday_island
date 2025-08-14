@@ -6,13 +6,13 @@ from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 class Camera:
     def __init__(self):
 
-        # position camera in the middle of the terrain_surface
-        start_pos_x = 0
-        start_pos_y = MAP_HEIGHT * REFERENCE_TILE_HEIGHT / 2 - SCREEN_HEIGHT / 2
+        # initial position of the camera
+        start_world_x = MAP_WIDTH * REFERENCE_TILE_WIDTH / 2 - SCREEN_WIDTH / 2
+        start_world_y = 0 # MAP_HEIGHT * REFERENCE_TILE_HEIGHT / 2 - SCREEN_HEIGHT / 2
 
-        self.scroll = pygame.Vector2(start_pos_x, start_pos_y)
+        self.position_world = pygame.Vector2(start_world_x, start_world_y)
 
-        # movement chunks in x and y
+        # movement chunks per frame
         self.dx = 0
         self.dy = 0
 
@@ -38,8 +38,5 @@ class Camera:
             self.dy = 0
 
         # update camera position
-        self.scroll.x += self.dx
-        self.scroll.y += self.dy
-
-        print(f"world coordinates x: {self.scroll.x + pygame.mouse.get_pos()[0]}")
-        print(f"world coordinates y: {self.scroll.y + pygame.mouse.get_pos()[1]}")
+        self.position_world.x += self.dx
+        self.position_world.y += self.dy
