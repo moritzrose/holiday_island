@@ -17,6 +17,10 @@ class Cursor:
         self.screen_x = None
         self.screen_y = None
 
+        # tile coordinates
+        self.tile_x = None
+        self.tile_y = None
+
         # world coordinates
         self.world_x = None
         self.world_y = None
@@ -38,12 +42,19 @@ class Cursor:
         self.screen_x = pygame.mouse.get_pos()[0]
         self.screen_y = pygame.mouse.get_pos()[1]
 
-        self.tile_x = None
-        self.tile_y = None
-
         # calculate world coordinates from camera offset
         self.world_x = self.camera.position_world.x + self.screen_x
         self.world_y = self.camera.position_world.y + self.screen_y
+
+        # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
+        # 2. compare terrain level of tile(x,y) with terrain level in height map
+        # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
+        for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
+            tile_x, tile_y = world_to_tile(self.world_x, self.world_y, terrain_level)
+            if self.height_map[tile_y][tile_x] >= terrain_level:
+                self.tile_x = tile_x
+                self.tile_y = tile_y
+                break;
 
         if SHOW_INFO_BOX:
             self.show_infobox()
@@ -58,14 +69,7 @@ class Cursor:
         world_coordinates = (self.world_x, self.world_y)
 
         # tile coordinates
-        # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
-        # 2. compare terrain level of tile(x,y) with terrain level in height map
-        # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
-        for terrain_level in range(MAX_TERRAIN_LEVEL):
-            self.tile_x, self.tile_y = world_to_tile(self.world_x, self.world_y, terrain_level)
-            if self.height_map[self.tile_y][self.tile_x] == terrain_level:
-                break;
-        tile_coordinates = (self.tile_y, self.tile_x)
+        tile_coordinates = (self.tile_x, self.tile_y)
 
         # ask gardener
         vegetation_info = self.gardener.get_plant_info(self.tile_x, self.tile_y)
