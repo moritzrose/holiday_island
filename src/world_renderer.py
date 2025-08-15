@@ -10,6 +10,8 @@ from src.game_configuration import MAP_WIDTH, MAP_HEIGHT
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 from src.utils import tile_to_world
 
+ELEVATION_OFFSET = 9
+
 MORE_SAND_SUFFIX = "S"
 
 # probabilites for tile variation - sum = 1
@@ -158,7 +160,7 @@ class WorldRenderer:
             world_x, world_y = tile_to_world(tile_x, tile_y)
 
             # account for terrain level
-            world_y -= terrain_level * 9
+            world_y -= terrain_level * ELEVATION_OFFSET
 
             # adjust to the middle of the terrain surface
             world_x += self.terrain_surface.get_width() * 0.5 - REFERENCE_TILE_WIDTH * 0.5
@@ -184,7 +186,7 @@ class WorldRenderer:
                 world_x, world_y = tile_to_world(tile_x, tile_y)
 
                 # account for terrain level
-                world_y -= terrain_level * 9
+                world_y -= terrain_level * ELEVATION_OFFSET
 
                 # adjust to the middle of the vegetation surface
                 world_x += self.vegetation_surface.get_width() * 0.5 - REFERENCE_TILE_WIDTH * 0.5
