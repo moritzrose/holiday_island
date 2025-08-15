@@ -8,9 +8,8 @@ from collections import Counter
 from height_map_generator import HeightMapGenerator
 from src.game_configuration import MAP_WIDTH, MAP_HEIGHT
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+from src.game_constants import ELEVATION_OFFSET
 from src.utils import tile_to_world
-
-ELEVATION_OFFSET = 9
 
 MORE_SAND_SUFFIX = "S"
 

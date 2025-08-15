@@ -2,6 +2,7 @@ from noise import pnoise2
 import matplotlib.pyplot as plt
 
 from src.game_configuration import WORLD_SEED, SHOW_HEIGHT_DISTRIBUTION
+from src.game_constants import MAX_TERRAIN_LEVEL
 
 
 def transform_noise_to_height(normalized_noise_value: float):
@@ -18,7 +19,7 @@ def transform_noise_to_height(normalized_noise_value: float):
     elif normalized_noise_value <= 0.75:
         return 5
     else:
-        return 6
+        return MAX_TERRAIN_LEVEL
 
 
 def clamp(value, min_value, max_value):

@@ -48,9 +48,7 @@ class Gardener:
 
         return self.plants.get(plant)
 
-    def get_plant_info(self, world_x, world_y):
-
-        tile_x, tile_y = world_to_tile(world_x, world_y)
+    def get_plant_info(self, tile_x, tile_y):
 
         return self.greenhouse.get(f"{tile_x},{tile_y}")
 

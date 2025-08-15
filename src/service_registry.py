@@ -14,9 +14,9 @@ class ServiceRegistry:
 
         # Basics
         self.camera = Camera()
-        self.cursor = Cursor(self)
 
         # renderer
         self.world_renderer = WorldRenderer(self)
 
+        self.cursor = Cursor(self)
 

@@ -1,6 +1,8 @@
 import pygame
 
 from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX
+from src.game_constants import MAX_TERRAIN_LEVEL
+
 from src.utils import world_to_tile
 
 
@@ -22,6 +24,9 @@ class Cursor:
         # camera, to calculate world coordinates
         self.camera = service_registry.camera
 
+        # world height map to calculate correct tile coordinates
+        self.height_map = service_registry.world_renderer.height_map
+
         # gardener, to get vegetation info
         self.gardener = service_registry.gardener
 
@@ -32,6 +37,9 @@ class Cursor:
     def update(self):
         self.screen_x = pygame.mouse.get_pos()[0]
         self.screen_y = pygame.mouse.get_pos()[1]
+
+        self.tile_x = None
+        self.tile_y = None
 
         # calculate world coordinates from camera offset
         self.world_x = self.camera.position_world.x + self.screen_x
@@ -49,8 +57,18 @@ class Cursor:
         # world coordinates
         world_coordinates = (self.world_x, self.world_y)
 
+        # tile coordinates
+        # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
+        # 2. compare terrain level of tile(x,y) with terrain level in height map
+        # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
+        for terrain_level in range(MAX_TERRAIN_LEVEL):
+            self.tile_x, self.tile_y = world_to_tile(self.world_x, self.world_y, terrain_level)
+            if self.height_map[self.tile_y][self.tile_x] == terrain_level:
+                break;
+        tile_coordinates = (self.tile_y, self.tile_x)
+
         # ask gardener
-        vegetation_info = self.gardener.get_plant_info(self.world_x, self.world_y)
+        vegetation_info = self.gardener.get_plant_info(self.tile_x, self.tile_y)
 
         # ask architect
         building_info = None # TODO ask architect
@@ -58,4 +76,5 @@ class Cursor:
         # show info
         print(f"screen coordinates: {screen_coordinates}\n"
               f"world coordinates: {world_coordinates}\n"
+              f"tile coordinates: {tile_coordinates}\n"
               f"vegetation info: {vegetation_info}")
