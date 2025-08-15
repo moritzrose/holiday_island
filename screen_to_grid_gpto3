@@ -1,0 +1,191 @@
+Die scheinbare „Henne-Ei-Schleife“ löst man, indem man die Y-Absenkung nicht rückwärts errät, sondern systematisch ausprobiert.  
+Die Idee lautet:
+
+1. Ein Bildschirm¬punkt repräsentiert eine ganze Säule von evtl. übereinander¬gestapelten Tiles.  
+2. Man verschiebt den Punkt testweise um h × Offset nach unten, wandelt ihn dann in Gitter¬koordinaten um – und prüft, ob an (x,y) überhaupt ein Tile mit Höhe ≥ h existiert.  
+3. Man beginnt bei der größten vorkommenden Höhe und arbeitet sich nach unten, bis der Test positiv ist.  
+
+So kennt man beim erfolgreichen Test gleichzeitig  
+• die korrekten Grid-Koordinaten  
+• die tatsächliche Höhe und damit das Offset.
+
+--------------------------------------------------
+Schritt 1 – Inverse Isometrie ohne Höhe  
+Für ein üblicheres 2:1-Isoraster (halbe Breite/halbe Höhe = w2/h2) lautet die Umkehr¬abbildung (Bildschirm → Gitter) ([medium.com](https://medium.com/%40kavierim/demystifying-isometric-projection-in-2d-games-with-python-bbcc2038a620?utm_source=chatgpt.com))
+
+    gx_f = ( sx / w2 +  sy / h2 ) / 2   // float
+    gy_f = ( sy / h2 -  sx / w2 ) / 2
+    gx   = floor(gx_f)
+    gy   = floor(gy_f)
+
+Schritt 2 – Der Such-Loop  
+
+    // Konstanten
+    const int maxH      = MAX_TERRAIN_LEVEL;   // z.B. 7
+    const int dzScreen  = 9;                   // 9 px je Level
+    const int w2 = tileW/2, h2 = tileH/2;
+
+    int pickTile(int sx, int sy, out int gx, out int gy, out int h)
+    {
+        for (h = maxH; h >= 0; --h)
+        {
+            // „Abflachen“ auf Ebene h:
+            int sy_flat = sy + h * dzScreen;
+
+            // Inverse Iso-Transformation
+            float gx_f = (float)(sx) / w2 + (float)(sy_flat) / h2;
+            gx_f *= 0.5f;
+            float gy_f = (float)(sy_flat) / h2 - (float)(sx) / w2;
+            gy_f *= 0.5f;
+
+            gx = floor(gx_f);
+            gy = floor(gy_f);
+
+            // liegt der Cursor innerhalb des Kachel-Diamanten?
+            if (pointInDiamond(sx, sy,
+                               gx, gy, h, w2, h2, dzScreen) &&
+                heightMap[gx][gy] >= h)          // gibt es dort einen Block?
+            {
+                return 1;                        // Treffer
+            }
+        }
+        return 0;                                // nichts unter dem Cursor
+    }
+
+`pointInDiamond` testet mit baryzentrischer/halbebenen-Methode, ob der Pixel im Top-Polygon des geprüften Tiles liegt (optional, aber präziser).
+
+Schritt 3 – Bildschirm¬offset & Nachkorrektur  
+Hat man das Tripel (gx,gy,h), lässt sich jederzeit das exakte Zeichen-Offset ermitteln:
+
+    screenX = (gx - gy) * w2;
+    screenY = (gx + gy) * h2 - h * dzScreen;
+
+Damit kann der Cursor sprite-genau auf das Tile gesetzt oder das Ergebnis für weiteres Picking benutzt werden.
+
+--------------------------------------------------
+Warum bricht der Zirkel?  
+• Die Schleife benutzt gar kein Offset aus der HeightMap, sondern fügt für jeden Test künstlich eines hinzu.  
+• Dadurch kann man zuerst entscheiden „Wenn es Ebene h wäre, auf welches Grund-Tile fiele der Punkt?“ und DANN nachsehen, ob dieses Tile wirklich Höhe ≥ h besitzt.  
+• Damit gibt es keinen Kreis¬bezug mehr; die Höhe wird durch den Suchvorgang bestimmt.
+
+--------------------------------------------------
+Vorteile  
+
+• O( H_max ) — bei typischen Iso-Karten liegen 5-10 Höhen¬stufen vor; der Test ist konstant schnell.  
+• Keine teuren Ray-Polygon-Schnitte, keine großen Look-up-Tabellen.  
+• Man braucht nur die normale HeightMap; das Render-Offset wird nie gespeichert, nur on-the-fly berechnet.
+
+--------------------------------------------------
+Weiterführende Quellen  
+
+• Formel zur Inversen 2D-Isometrie ([medium.com](https://medium.com/%40kavierim/demystifying-isometric-projection-in-2d-games-with-python-bbcc2038a620?utm_source=chatgpt.com))  
+• Idee, den Maus-y-Wert je Ebene zu „entstapeln“ ([stackoverflow.com](https://stackoverflow.com/questions/21842814/mouse-position-to-isometric-tile-including-height?utm_source=chatgpt.com))
+
+
+
+
+
+
+
+
+Kurzfassung (TL;DR)  
+1. Professionelle Engines trennen strikt drei Koordinatenräume:  
+ a) Tile-/Welt-Koordinaten (i,j,k)  
+ b) Model-Koordinaten in Metern/Units (x,y,z)  
+ c) Screen-Koordinaten (sx, sy)  
+2. Zwischen den Räumen liegen reine Transform-Matrizen. Für Isometrie ist das eine einzige 4×4-Matrix (Rotation 45°, Skalierung, Translation, -z-Skew).  
+3. „Picking“ (Maus-/Cursor-Treffer¬abfrage) wird als Ray-cast gelöst: baue aus der Bildschirm¬position einen Strahl, transfomiere ihn mit Invers-Matrix in den Welt¬raum und laufe Voxel/Tiles von vorn nach hinten ab – bis ein belegtes Tile getroffen ist.  
+4. Damit ist die vermeintliche Henne-Ei-Situation (Offset ⇌ Grid-Koordinaten) gar nicht vorhanden: Das Offset fällt ganz automatisch aus der Z-Komponente des ersten getroffenen Tiles heraus.
+
+────────────────────────────────────────────
+1  Drei Räume, drei Funktionen  
+
+    // Welt->Screen (Rendern)
+    vec2 screen =  isoMatrix * vec3(x, y, z=height);
+
+    // Screen->Welt (Picking)
+    vec3 world  = invIsoMatrix * vec3(sx, sy, 0);
+
+Beide Matrizen werden einmal zu Spielstart berechnet, dann nur noch multipliziert. Das entspricht exakt der Vorgehens¬weise, die in Game-Dev-Antworten empfohlen wird. ([gamedev.stackexchange.com](https://gamedev.stackexchange.com/questions/23866/picking-a-tile-in-an-iso-engine))  
+
+2  Ray-cast statt „Offset rückwärtsrechnen“  
+a) Erzeuge einen Strahl (o,d) mit  
+ o = invIso * (sx,sy,-∞) (weit vor der Kamera)  
+ d = (0,0,1) bzw. Differenz zu Punkt auf derselben Maus¬linie mit größerem z.  
+b) Schrittweite = 1 Tile-Höhe → jede Iteration landet exakt auf dem „Deckel“ eines neuen Tiles.  
+c) Schau in der HeightMap nach, ob an (i,j) ein Block mit Höhe ≥ aktueller z liegt. Sobald ja, ist das gesuchte Tile gefunden; Offset = z*dzScreen. Ansatz identisch zur Lösung „von oben nach unten iterieren“, die bei SO akzeptiert wurde. ([stackoverflow.com](https://stackoverflow.com/questions/21842814/mouse-position-to-isometric-tile-including-height?utm_source=chatgpt.com))  
+
+Das Verfahren ist O(maxHeight) ≈ 10 … 20 Schritte und garantiert pixel-genau, egal wie viele Stufen eine Karte besitzt.
+
+3  Warum wird das so gemacht?  
+• Architektur¬sauber: Rendering und Gameplay kennen nur Welt¬koordinaten – die GUI ist nur eine andere Projektion.  
+• Beliebige Kamerabewegungen, Zooms, Tilegrößen oder zusätzliche 3D-Objekte ändern nur eine Matrixzeile.  
+• Der Code ist klar test- und wartbar; nichts ist in Zeichen¬routinen „festgebacken“.
+
+4  Typischer Daten¬aufbau in kommerziellen Iso-Engines  
+
+    struct Tile {
+        uint8  groundType;   // Textur/Material
+        int8   height;       // 0-127
+        uint8  flags;        // begehbar, Wasser, …
+    };
+
+    Tile map[width][height];
+
+Optionale Stacks (Brücken, Mauern, Objekte) stecken in separaten Layer-Arrays; sie werden beim Ray-cast einfach vor dem Terrain abgeprüft (Depth-First).
+
+5  Empfehlungen zur bestehenden Architektur  
+• Extrahiere die Projektion (Grid→Screen) in eine Funktion bzw. Matrix – keine Inline-Rechnungen mehr in den Render-Schleifen.  
+• Lege alle Höhen in demselben Array ab, in dem du auch Gelände¬typ speicherst; „offene Pixel-Offsets“ tauchen dann nirgendwo mehr auf.  
+• Nutze fürs Picking strikt die Invers-Matrix + Ray-cast; der Code ist kurz, gut getestet und grenzt das Problem auf Mathematik statt Spaghetti¬logik ein.
+
+Damit ist die Architektur nicht „schlecht“, sie ist nur unvollständig. Sobald die Transformations¬matrizen eingeführt sind, verschwindet der Kreislauf – genau so wird es in professionellen Engines (Unity-Tilemaps, Godot-Isometric, proprietäre RTS-Engines) gelöst.
+
+
+
+
+
+
+
+
+
+
+
+Ja – das Problem tauchte in jeder klassischen Iso-Engine auf, auch in RollerCoaster Tycoon (1999) und RCT2 (2002). Dort wird der Park intern ebenfalls als rechteckiges Gitter (X,Y) mit einer ganzzahligen Höhe (Z = 0 … 31 “Land-Units”) gespeichert, während die Grafikkarte nur die im Voraus gerenderten Sprites kennt. Der Cursor fährt also zunächst über reine Screen-Koordinaten, und das Spiel muss herausfinden, auf welchem Land-/Objekt-„Stack“ er steht.
+
+So wurde (und wird in OpenRCT2 immer noch) vorgegangen:
+
+1. Drei getrennte Räume  
+   • Map-Koordinaten: 1 Tile = 32 × 32 px, Höhe = 8 px je „Land-Unit“.  
+   • Objekt-Koordinaten: innerhalb des Tiles werden bis zu 16 Elemente übereinander gespeichert (surface, track-piece, scenery …).  
+   • Screen: reines 2-D.
+
+2. Eine feste Projektionsmatrix „map → screen“.  
+   Bei RCT sind das nur Integer-Konstanten (±32, ±16, –8); die Inverse Matrix wird einmal beim Start in eine Look-up-Tabelle (256×256 Einträge) aufgelöst.
+
+3. Picking-Algorithmus (Viewport.cpp / `viewport_intersect` in OpenRCT2)  
+   a) Mausposition (sx,sy) → mittels der Invers-Tabelle grobe (x,y)-Kachel.  
+   b) Jetzt startet ein Loop von oben nach unten (z = 31 … 0):  
+      – `screenY_flat = sy + z*8` (Offset zurücknehmen)  
+      – mit derselben Tabelle noch einmal präzise X,Y bestimmen  
+      – in der Tile-Struktur nachschauen, ob auf (x,y) ein Element mit Basis-Höhe ≤ z und Top-Höhe > z liegt.  
+      – ist das der Fall, ist das die getroffene Kachel; Schleife wird beendet.  
+   c) Spezialfall: Steile Achter¬bahn-Schienen haben schräge Bounding-Boxes; die Routine prüft deshalb noch ein 8-px-hohes Rechteck auf Kollisionspixel (ein RLE-Sprite-Mask-Test, s. Quelle-Ausschnitt oben).
+
+4. Warum funktioniert das performant?  
+   • Maximal 32 Höhen¬schichten → konstante 32 Durchläufe.  
+   • Alles mit Integer-Arithmetik; keine Gleitkomma-Trigonometrie.  
+   • Vorberechnete Tabellen sparen zwei Mul-/Div-Operationen pro Iteration.
+
+5. Artefakte im Original  
+   • Bei RCT1/2 verschwindet der Höhen-Cursor in seltenen Fällen, wenn man weit herauszoomt – genau dieselbe Bug-Zeile wird in OpenRCT2 Issue #22208 diskutiert (siehe Source-Snippet).  
+   • Der „Cut-away-View“ nutzt intern das gleiche Verfahren, blendet jedoch alle Z-Schichten oberhalb einer Schwelle aus, bevor die Schlaufe beginnt.
+
+Fazit  
+Dein „Henne-Ei-Problem“ ist also keineswegs architektur¬bedingter Fehler – es ist das Standard¬problem jeder isometrischen Engine. Profis lösen es, indem sie
+
+• eine eindeutige Welt->Screen-Matrix plus deren Inverse haben und  
+• beim Picking einfach von der höchsten potenziellen Z-Schicht nach unten iterieren, bis die Welt¬daten sagen: „Hier befindet sich wirklich Geometrie“.  
+
+Genau so machen es RollerCoaster Tycoon 1/2, Age of Empires II, Diablo II – und aktuelle Engines wie Unity-Tilemap oder Godot-Isometric ebenfalls.
+
