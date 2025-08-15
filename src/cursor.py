@@ -1,7 +1,7 @@
 import pygame
 
-from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX
-from src.game_constants import MAX_TERRAIN_LEVEL
+from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX, MAP_WIDTH
+from src.game_constants import MAX_TERRAIN_LEVEL, REFERENCE_TILE_WIDTH, ELEVATION_OFFSET
 
 from src.utils import world_to_tile
 
@@ -49,8 +49,16 @@ class Cursor:
         # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
         # 2. compare terrain level of tile(x,y) with terrain level in height map
         # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
+
+        # account for surface offsets which changes the tiles' screen_x coordinate
+        world_pos_no_offset_x = self.world_x - 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH + 0.5 * REFERENCE_TILE_WIDTH
+
         for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
-            tile_x, tile_y = world_to_tile(self.world_x, self.world_y, terrain_level)
+
+            # account for terrain level, which offsets the tiles' screen_y coordinate
+            world_pos_no_offset_y = self.world_y - ELEVATION_OFFSET * terrain_level
+
+            tile_x, tile_y = world_to_tile(world_pos_no_offset_x, world_pos_no_offset_y, terrain_level)
             if self.height_map[tile_y][tile_x] >= terrain_level:
                 self.tile_x = tile_x
                 self.tile_y = tile_y

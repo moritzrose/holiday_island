@@ -25,12 +25,8 @@ def world_to_tile(world_x, world_y, terrain_level):
     # determinant
     determinant = 1 / (A * D - B * C)
 
-    # account for terrain level, which offsets the tiles' screen coordinates
-    terrain_offset = ELEVATION_OFFSET * terrain_level
-
     # need to round down cause tile_x = 0.9 is still tile_x = 0
-    tile_x = math.floor(determinant * (D * world_x - B * (world_y - terrain_offset)) - 100)
-    tile_y = math.floor(determinant * (-C * world_x + A * (world_y - terrain_offset)) + 100)
-    # I do not know why I need the 100/-100 ... it works ... my head hurts ... it happens to be 200 / 2 with 200 being the number of tiles I have in x and y direction ... coincident?
+    tile_x = math.floor(determinant * (D * world_x - B * world_y))
+    tile_y = math.floor(determinant * (-C * world_x + A * world_y))
 
     return tile_x, tile_y
