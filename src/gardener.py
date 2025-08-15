@@ -4,7 +4,6 @@ from src.asset_manager import load_plants
 from src.game_configuration import PLANT_PROB
 from src.utils import world_to_tile
 
-
 class Gardener:
 
     def __init__(self):
