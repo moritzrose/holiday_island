@@ -5,9 +5,15 @@ from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 
 # watch this if you want to understand https://www.youtube.com/watch?v=04oQ2jOUjkU
 
+# A = 0.5 * REFERENCE_TILE_WIDTH
+# B = -0.5 * REFERENCE_TILE_WIDTH
+# C = 0.5 * REFERENCE_TILE_HEIGHT
+# D = 0.5 * REFERENCE_TILE_HEIGHT
+
+
 i_x = 0.5
-i_y = - 0.5
-j_x = 0.5
+i_y = 0.5
+j_x = - 0.5
 j_y = 0.5
 
 
