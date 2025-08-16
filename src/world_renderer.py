@@ -6,7 +6,7 @@ from src.camera import Camera
 
 from collections import Counter
 from height_map_generator import HeightMapGenerator
-from src.game_configuration import MAP_WIDTH, MAP_HEIGHT
+from src.game_configuration import MAP_WIDTH, MAP_HEIGHT, DEBUG_TILES
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 from src.game_constants import ELEVATION_OFFSET
 from src.utils import tile_to_world
@@ -142,7 +142,7 @@ class WorldRenderer:
                 height_values = [tl, tr, br, bl]
 
                 self.render_terrain(height_values, col, row)
-                self.render_vegetation(height_values, col, row)
+                # self.render_vegetation(height_values, col, row)
 
         self.world_is_clean = True
 
@@ -162,10 +162,19 @@ class WorldRenderer:
             world_y -= terrain_level * ELEVATION_OFFSET
 
             # adjust to the middle of the terrain surface
-            world_x += MAP_WIDTH * REFERENCE_TILE_WIDTH * 0.5 - REFERENCE_TILE_WIDTH * 0.5
+            world_x += - REFERENCE_TILE_WIDTH * 0.5 # + MAP_WIDTH * REFERENCE_TILE_WIDTH * 0.5
 
             # draw all tiles as one terrain surface to avoid unnecessary rerendering of every single tile
             self.terrain_surface.blit(image, (world_x, world_y))
+
+            if DEBUG_TILES:
+                rect = pygame.Rect(
+                    world_x,
+                    world_y,
+                    REFERENCE_TILE_WIDTH,
+                    REFERENCE_TILE_HEIGHT
+                )
+                pygame.draw.rect(self.terrain_surface, (255, 0, 0), rect, 1)  # 1 = nur Rand
 
     def render_vegetation(self, height_values, tile_x, tile_y):
 
