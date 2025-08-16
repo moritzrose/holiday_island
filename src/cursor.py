@@ -51,7 +51,7 @@ class Cursor:
         # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
 
         # account for surface offsets which changes the tiles' screen_x coordinate
-        world_pos_no_offset_x = self.world_x - 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH + 0.5 * REFERENCE_TILE_WIDTH
+        world_pos_no_offset_x = self.world_x + 0.5 * REFERENCE_TILE_WIDTH #- 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH
 
         for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
 

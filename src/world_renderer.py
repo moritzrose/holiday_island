@@ -162,7 +162,7 @@ class WorldRenderer:
             world_y -= terrain_level * ELEVATION_OFFSET
 
             # adjust to the middle of the terrain surface
-            world_x += - REFERENCE_TILE_WIDTH * 0.5 # + MAP_WIDTH * REFERENCE_TILE_WIDTH * 0.5
+            world_x += - REFERENCE_TILE_WIDTH * 0.5# + MAP_WIDTH * REFERENCE_TILE_WIDTH * 0.5
 
             # draw all tiles as one terrain surface to avoid unnecessary rerendering of every single tile
             self.terrain_surface.blit(image, (world_x, world_y))
