@@ -22,9 +22,6 @@ def tile_to_world(tile_x, tile_y):
     world_x = tile_x * i_x * REFERENCE_TILE_WIDTH + tile_y * j_x * REFERENCE_TILE_WIDTH  # (A * tile_x + B * tile_y)
     world_y = tile_x * i_y * REFERENCE_TILE_HEIGHT + tile_y * j_y * REFERENCE_TILE_HEIGHT  # (C * tile_x + D * tile_y)
 
-    # x: tile.x * i_x * 0.5 * w + tile.y * j_x * 0.5 * w,
-    # y: tile.x * i_y * 0.5 * h + tile.y * j_y * 0.5 * h,
-
     return world_x, world_y
 
 
