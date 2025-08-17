@@ -59,7 +59,7 @@ class App:
             self.cursor.update()
 
             # update camera position
-            self.camera.update()
+            #self.camera.update()
 
             # render map
             self.world_renderer.render_world()

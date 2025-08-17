@@ -7,8 +7,8 @@ class Camera:
     def __init__(self):
 
         # initial position of the camera
-        start_world_x = 0#MAP_WIDTH * REFERENCE_TILE_WIDTH / 2 #-  SCREEN_WIDTH / 2
-        start_world_y = 0#MAP_HEIGHT * REFERENCE_TILE_HEIGHT / 2 #- SCREEN_HEIGHT / 2
+        start_world_x = 0 # MAP_WIDTH * REFERENCE_TILE_WIDTH / 2 -  SCREEN_WIDTH / 2
+        start_world_y = 0 #MAP_HEIGHT * REFERENCE_TILE_HEIGHT / 2 #- SCREEN_HEIGHT / 2
 
         self.position_world = pygame.Vector2(start_world_x, start_world_y)
 

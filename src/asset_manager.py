@@ -169,6 +169,30 @@ def load_grass_tiles():
     }
     return grass_tiles
 
+# colored edge tiles to check tile borders
+def load_cheat_tiles():
+    cheat_tiles = {
+        "0000": {"sprite": pygame.image.load("../resources/tiles/border_cheat/0000.png").convert_alpha()},
+        "1-100": {"sprite": pygame.image.load("../resources/tiles/border_cheat/1-100.png").convert_alpha()},
+        "01-10": {"sprite": pygame.image.load("../resources/tiles/border_cheat/01-10.png").convert_alpha()},
+        "001-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/001-1.png").convert_alpha()},
+        "-1001": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-1001.png").convert_alpha()},
+        "10-10": {"sprite": pygame.image.load("../resources/tiles/border_cheat/10-10.png").convert_alpha()},
+        "-1010": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-1010.png").convert_alpha()},
+        "010-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/010-1.png").convert_alpha()},
+        "0-101": {"sprite": pygame.image.load("../resources/tiles/border_cheat/0-101.png").convert_alpha()},
+        "100-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/100-1.png").convert_alpha()},
+        "-1100": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-1100.png").convert_alpha()},
+        "0-110": {"sprite": pygame.image.load("../resources/tiles/border_cheat/0-110.png").convert_alpha()},
+        "00-11": {"sprite": pygame.image.load("../resources/tiles/border_cheat/00-11.png").convert_alpha()},
+        "1-11-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/1-11-1.png").convert_alpha()},
+        "-11-11": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-11-11.png").convert_alpha()},
+        "11-1-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/11-1-1.png").convert_alpha()},
+        "1-1-11": {"sprite": pygame.image.load("../resources/tiles/border_cheat/1-1-11.png").convert_alpha()},
+        "-1-111": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-1-111.png").convert_alpha()},
+        "-111-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-111-1.png").convert_alpha()},
+    }
+
 # vegetation
 
 def load_plants():

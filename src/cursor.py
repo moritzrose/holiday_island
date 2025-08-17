@@ -1,15 +1,16 @@
 import pygame
 
+from src.asset_manager import load_cheat_tiles
 from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX, MAP_WIDTH
-from src.game_constants import MAX_TERRAIN_LEVEL, REFERENCE_TILE_WIDTH, ELEVATION_OFFSET
+from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+from src.utils import world_to_tile, calculate_tile_id
 
-from src.utils import world_to_tile
+RED = (255, 0, 0)
 
 
 class Cursor:
 
     def __init__(self, service_registry):
-
         # if I ever want to add one
         self.icon = None
 
@@ -29,10 +30,12 @@ class Cursor:
         self.camera = service_registry.camera
 
         # world height map to calculate correct tile coordinates
-        self.height_map = service_registry.world_renderer.height_map
+        self.world_renderer = service_registry.world_renderer
 
         # gardener, to get vegetation info
         self.gardener = service_registry.gardener
+
+        self.cheat_tiles = load_cheat_tiles()
 
         # architect, to get building info TODO add architect
         # self.architect = role_registry.architect
@@ -46,30 +49,35 @@ class Cursor:
         self.world_x = self.camera.position_world.x + self.screen_x
         self.world_y = self.camera.position_world.y + self.screen_y
 
+        tile_x, tile_y = world_to_tile(self.world_x, self.world_y, 0)
+
+        # check if the cursor is in an adjacent tile
+        correction = self.check_borders(height_values, self.world_x, self.world_y)
+
+        print(tile_x, tile_y)
         # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
         # 2. compare terrain level of tile(x,y) with terrain level in height map
         # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
 
         # account for surface offsets which changes the tiles' screen_x coordinate
-        world_pos_no_offset_x = self.world_x + 0.5 * REFERENCE_TILE_WIDTH #- 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH
+        # world_pos_no_offset_x = self.world_x + 0.5 * REFERENCE_TILE_WIDTH - 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH
 
-        for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
+        # for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
 
-            # account for terrain level, which offsets the tiles' screen_y coordinate
-            world_pos_no_offset_y = self.world_y - ELEVATION_OFFSET * terrain_level
+        # account for terrain level, which offsets the tiles' screen_y coordinate
+        #    world_pos_no_offset_y = self.world_y - ELEVATION_OFFSET * terrain_level
 
-            tile_x, tile_y = world_to_tile(world_pos_no_offset_x, world_pos_no_offset_y, terrain_level)
-            if self.height_map[tile_y][tile_x] >= terrain_level:
-                self.tile_x = tile_x
-                self.tile_y = tile_y
-                break;
+        #    tile_x, tile_y = world_to_tile(world_pos_no_offset_x, world_pos_no_offset_y, terrain_level)
+        #    if self.world_renderer.height_map[tile_y][tile_x] >= terrain_level:
+        #        self.tile_x = tile_x
+        #        self.tile_y = tile_y
+        #        break;
 
         if SHOW_INFO_BOX:
             self.show_infobox()
 
     # show tile or vegetation info if available
     def show_infobox(self):
-
         # screen coordinates
         screen_coordinates = (self.screen_x, self.screen_y)
 
@@ -83,10 +91,28 @@ class Cursor:
         vegetation_info = self.gardener.get_plant_info(self.tile_x, self.tile_y)
 
         # ask architect
-        building_info = None # TODO ask architect
+        building_info = None  # TODO ask architect
 
         # show info
         print(f"screen coordinates: {screen_coordinates}\n"
               f"world coordinates: {world_coordinates}\n"
               f"tile coordinates: {tile_coordinates}\n"
               f"vegetation info: {vegetation_info}")
+
+    def check_borders(self, height_values, world_x, world_y):
+        tile_id = calculate_tile_id(height_values)
+        cheat_tile = self.cheat_tiles.get(tile_id)
+        cell_offset_x = world_x % REFERENCE_TILE_WIDTH
+        cell_offset_y = world_y % REFERENCE_TILE_HEIGHT
+
+        color = cheat_tile.get_at((cell_offset_x, cell_offset_y))
+        if color[:3] == (0, 23, 255):
+            return -1, 0
+        elif color[:3] == (255, 0, 0):
+            return 0, -1
+        elif color[:3] == (255, 255, 0):
+            return 1, 0
+        elif color[:3] == (15, 255, 0):
+            return 0, 1
+        else:
+            return 0, 0
