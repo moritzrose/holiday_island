@@ -57,6 +57,9 @@ class WorldRenderer:
         # needs rerender?
         self.world_is_clean = False
 
+        # map tile type to tile coordinates
+        self.tile_map = dict()
+
         # initialize terrain surface to render all tiles on
         self.terrain_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT),
                                               pygame.SRCALPHA)
@@ -138,6 +141,9 @@ class WorldRenderer:
 
 
     def render_terrain(self, height_values, tile_x, tile_y):
+
+        self.tile_map[f"{tile_x},{tile_y}"] = calculate_tile_id(height_values)
+
         tile = self.get_tile(height_values)
 
         # get terrain level for the current tile

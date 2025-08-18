@@ -192,6 +192,7 @@ def load_cheat_tiles():
         "-1-111": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-1-111.png").convert_alpha()},
         "-111-1": {"sprite": pygame.image.load("../resources/tiles/border_cheat/-111-1.png").convert_alpha()},
     }
+    return cheat_tiles
 
 # vegetation
 

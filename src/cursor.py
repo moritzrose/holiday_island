@@ -46,14 +46,15 @@ class Cursor:
         self.screen_y = pygame.mouse.get_pos()[1]
 
         # calculate world coordinates from camera offset
-        self.world_x = self.camera.position_world.x + self.screen_x
-        self.world_y = self.camera.position_world.y + self.screen_y
+        self.world_x = int (self.camera.position_world.x + self.screen_x)
+        self.world_y = int (self.camera.position_world.y + self.screen_y)
 
         tile_x, tile_y = world_to_tile(self.world_x, self.world_y, 0)
 
         # check if the cursor is in an adjacent tile
-        correction = self.check_borders(height_values, self.world_x, self.world_y)
-
+        correction = self.check_borders(self.world_x, self.world_y)
+        tile_x += correction[0]
+        tile_y += correction[1]
         print(tile_x, tile_y)
         # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
         # 2. compare terrain level of tile(x,y) with terrain level in height map
@@ -99,13 +100,13 @@ class Cursor:
               f"tile coordinates: {tile_coordinates}\n"
               f"vegetation info: {vegetation_info}")
 
-    def check_borders(self, height_values, world_x, world_y):
-        tile_id = calculate_tile_id(height_values)
-        cheat_tile = self.cheat_tiles.get(tile_id)
+    def check_borders(self, world_x, world_y):
+
+        cheat_tile = self.cheat_tiles.get("0000")
         cell_offset_x = world_x % REFERENCE_TILE_WIDTH
         cell_offset_y = world_y % REFERENCE_TILE_HEIGHT
 
-        color = cheat_tile.get_at((cell_offset_x, cell_offset_y))
+        color = cheat_tile.get("sprite").get_at((cell_offset_x, cell_offset_y))
         if color[:3] == (0, 23, 255):
             return -1, 0
         elif color[:3] == (255, 0, 0):
