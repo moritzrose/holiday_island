@@ -1,9 +1,16 @@
 import pygame
 
+GREEN = 15, 255, 0
+
+YELLOW = 255, 255, 0
+
+RED = 255, 0, 0
+
+BLUE = 0, 23, 255
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-# RED =
 
 OFFSET_X = 3
 OFFSET_Y = 3
@@ -88,17 +95,16 @@ def world_to_tile(world_x, world_y):
 
 def check_borders(cell_offset_x, cell_offset_y):
     color = border_sprite.get_at((cell_offset_x, cell_offset_y))
-    if color[:3] == (0, 23, 255):
+    if color[:3] == (BLUE):
         return -1, 0
-    elif color[:3] == (255, 0, 0):
+    elif color[:3] == (RED):
         return 0, -1
-    elif color[:3] == (255, 255, 0):
+    elif color[:3] == (YELLOW):
         return 1, 0
-    elif color[:3] == (15, 255, 0):
+    elif color[:3] == (GREEN):
         return 0, 1
     else:
         return 0, 0
-
 
 running = True
 
