@@ -26,6 +26,8 @@ class App:
         # Service Registry - contains singletons of all components
         self.service_registry = ServiceRegistry()
 
+        # asset manager
+        self.asset_manager = AssetManager()
         # Camera
         self.camera = self.service_registry.camera
 
@@ -56,7 +58,7 @@ class App:
             self.screen.fill(BG)
 
             # update cursor position
-            self.cursor.update()
+            self.cursor.update(screen)
 
             # update camera position
             #self.camera.update()

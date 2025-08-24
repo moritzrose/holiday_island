@@ -40,8 +40,18 @@ class Cursor:
         # architect, to get building info TODO add architect
         # self.architect = role_registry.architect
 
+    def mouse_in_tile(self, mouse_x, mouse_y, screen_x, screen_y, tile_id):
+        local_x = mouse_x - screen_x
+        local_y = mouse_y - screen_y
+
+        sprite = grass_sprites.get(tile_id).get("sprite") # TODO grass sprites aus worldrenderer holen
+        sprite_mask = grass_sprite_masks.get(tile_id + "M") # TODO sprite masks erzeugen oder holen
+
+        if 0 <= local_x < sprite.get_width() and 0 <= local_y < sprite.get_height():
+            return sprite_mask.get_at((local_x, local_y)) == 1
+
     # update screen and grid coordinates
-    def update(self):
+    def update(self, screen):
         self.screen_x = pygame.mouse.get_pos()[0]
         self.screen_y = pygame.mouse.get_pos()[1]
 
@@ -49,30 +59,63 @@ class Cursor:
         self.world_x = int (self.camera.position_world.x + self.screen_x)
         self.world_y = int (self.camera.position_world.y + self.screen_y)
 
-        tile_x, tile_y = world_to_tile(self.world_x, self.world_y, 0)
+        # mouse pos to grid coordinates
+        grid_x, grid_y = projection_to_grid(mouse_x, mouse_y)
 
-        # check if the cursor is in an adjacent tile
-        correction = self.check_borders(self.world_x, self.world_y)
-        tile_x += correction[0]
-        tile_y += correction[1]
-        print(tile_x, tile_y)
-        # 1. loop through all possible terrain level offsets h, starting with hmax = MAX_TERRAIN_LEVEL
-        # 2. compare terrain level of tile(x,y) with terrain level in height map
-        # 3. first match means tile_x and tile_y are correct - ask me if you do not understand this - it took me a while as well!
 
-        # account for surface offsets which changes the tiles' screen_x coordinate
-        # world_pos_no_offset_x = self.world_x + 0.5 * REFERENCE_TILE_WIDTH - 0.5 * MAP_WIDTH * REFERENCE_TILE_WIDTH
+        # grid coordinates to screen coordinates
+        screen_x, screen_y = grid_to_projection(grid_x, grid_y, height_map[grid_y][grid_x])
 
-        # for terrain_level in range(MAX_TERRAIN_LEVEL, -1, -1):
+        self.world_renderer.calculate_tile_id(grid_x, grid_y)
 
-        # account for terrain level, which offsets the tiles' screen_y coordinate
-        #    world_pos_no_offset_y = self.world_y - ELEVATION_OFFSET * terrain_level
+        if mouse_in_tile(self.screen_x, self.screen_y, screen_x, screen_y, tile_id):
+            sprite = highlight_sprites.get(tile_id).get("sprite") # TODO highlight sprites fehlen
+            self.tile_x = grid_x
+            self.tile_y = grid_y
+            screen.blit(sprite, (screen_x, screen_y))
+            return
 
-        #    tile_x, tile_y = world_to_tile(world_pos_no_offset_x, world_pos_no_offset_y, terrain_level)
-        #    if self.world_renderer.height_map[tile_y][tile_x] >= terrain_level:
-        #        self.tile_x = tile_x
-        #        self.tile_y = tile_y
-        #        break;
+        # if the cursor is not in the sprite of the calculated tile, check neighbours
+        neighbours = [(grid_x - 1, grid_y), (grid_x, grid_y - 1), (grid_x + 1, grid_y), (grid_x, grid_y + 1)]
+
+        for neighbour in neighbours:
+            temp_grid_x = neighbour[0]
+            temp_grid_y = neighbour[1]
+
+            temp_grid_x = min(len(height_map[0]) - 2, temp_grid_x)
+            temp_grid_y = min(len(height_map) - 2, temp_grid_y)
+
+            temp_grid_x = max(0, temp_grid_x)
+            temp_grid_y = max(0, temp_grid_y)
+
+            screen_x, screen_y = grid_to_projection(temp_grid_x, temp_grid_y, height_map[temp_grid_y][temp_grid_x])
+            tile_id = self.world_renderer.calculate_tile_id(temp_grid_x, temp_grid_y)
+
+            if mouse_in_tile(mouse_x, mouse_y, screen_x, screen_y, tile_id):
+                sprite = highlight_sprites.get(tile_id).get("sprite")
+                screen.blit(sprite, (screen_x, screen_y))
+                return
+
+        # if still not, check the diagonal neighbours
+        diagonal_neighbours = [(grid_x - 1, grid_y - 1), (grid_x + 1, grid_y - 1), (grid_x + 1, grid_y + 1), (grid_x - 1, grid_y + 1)]
+
+        for neighbour in diagonal_neighbours:
+            temp_grid_x = neighbour[0]
+            temp_grid_y = neighbour[1]
+
+            temp_grid_x = min(len(height_map[0]) - 2, temp_grid_x)
+            temp_grid_y = min(len(height_map) - 2, temp_grid_y)
+
+            temp_grid_x = max(0, temp_grid_x)
+            temp_grid_y = max(0, temp_grid_y)
+
+            screen_x, screen_y = grid_to_projection(temp_grid_x, temp_grid_y, height_map[temp_grid_y][temp_grid_x])
+            tile_id = self.world_renderer.calculate_tile_id(temp_grid_x, temp_grid_y)
+
+            if mouse_in_tile(mouse_x, mouse_y, screen_x, screen_y, tile_id):
+                sprite = highlight_sprites.get(tile_id).get("sprite")
+                screen.blit(sprite, (screen_x, screen_y))
+                return
 
         if SHOW_INFO_BOX:
             self.show_infobox()
@@ -99,21 +142,3 @@ class Cursor:
               f"world coordinates: {world_coordinates}\n"
               f"tile coordinates: {tile_coordinates}\n"
               f"vegetation info: {vegetation_info}")
-
-    def check_borders(self, world_x, world_y):
-
-        cheat_tile = self.cheat_tiles.get("0000")
-        cell_offset_x = world_x % REFERENCE_TILE_WIDTH
-        cell_offset_y = world_y % REFERENCE_TILE_HEIGHT
-
-        color = cheat_tile.get("sprite").get_at((cell_offset_x, cell_offset_y))
-        if color[:3] == (0, 23, 255):
-            return -1, 0
-        elif color[:3] == (255, 0, 0):
-            return 0, -1
-        elif color[:3] == (255, 255, 0):
-            return 1, 0
-        elif color[:3] == (15, 255, 0):
-            return 0, 1
-        else:
-            return 0, 0

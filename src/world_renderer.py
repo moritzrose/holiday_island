@@ -112,6 +112,21 @@ class WorldRenderer:
     def set_screen(self, screen):
         self.screen = screen
 
+    def calculate_tile_id(self, grid_x, grid_y):
+        tl = self.height_map[grid_y + 1][grid_x]
+        tr = self.height_map[grid_y][grid_x]
+        br = self.height_map[grid_y][grid_x + 1]
+        bl = self.height_map[grid_y + 1][grid_x + 1]
+        height_values = [tl, tr, br, bl]
+
+        tile_id = (
+                str(height_values[1] - height_values[0]) +  # tr - tl
+                str(height_values[2] - height_values[1]) +  # br - tr
+                str(height_values[3] - height_values[2]) +  # bl - br
+                str(height_values[0] - height_values[3])  # tl - bl
+        )
+        return tile_id
+
     def render_world(self):
 
         # nothing dirty to rerender

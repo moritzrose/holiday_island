@@ -5,6 +5,7 @@
 
 import pygame
 
+
 def load_masks(sprite_collection :dict[str, dict]):
     masks = dict()
 
@@ -223,3 +224,8 @@ def load_plants():
         "palm9": {"sprite": pygame.image.load("../resources/plants/palm9.png").convert_alpha()},
     }
     return plants
+
+class AssetManager:
+    def __init__(self):
+        self.highlight_sprites = load_cheat_tiles()
+        self.water_tiles = load_water_tiles()

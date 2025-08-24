@@ -4,14 +4,6 @@ import math
 from src.asset_manager import load_grass_tiles, load_masks, load_cheat_tiles
 from src.utils import calculate_tile_id
 
-GREEN = 15, 255, 0
-
-YELLOW = 255, 255, 0
-
-RED = 255, 0, 0
-
-BLUE = 0, 23, 255
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -87,8 +79,8 @@ def projection_to_grid(projection_x, projection_y):
 
 
 def render_map(screen):
-    for y in range(len(height_map) - 2):
-        for x in range(len(height_map[0]) - 2):
+    for y in range(len(height_map) - 1):
+        for x in range(len(height_map[0]) - 1):
             z = height_map[y][x]
 
             tl = height_map[y + 1][x]
@@ -178,6 +170,7 @@ while running:
         if not tile_found:
             diagonal_neighbours = [(grid_x - 1, grid_y - 1), (grid_x + 1, grid_y - 1), (grid_x + 1, grid_y + 1),
                                    (grid_x - 1, grid_y + 1)]
+
 
             for neighbour in diagonal_neighbours:
                 temp_grid_x = neighbour[0]
