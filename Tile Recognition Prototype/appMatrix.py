@@ -1,6 +1,9 @@
 import pygame
 import math
 
+from src.asset_manager import load_grass_tiles
+
+
 GREEN = 15, 255, 0
 
 YELLOW = 255, 255, 0
@@ -28,6 +31,8 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Tile Recognition Prototype")
 
+grass_sprites = load_grass_tiles()
+
 grass_sprite = pygame.image.load("0000.png").convert_alpha()
 highlight_sprite = pygame.image.load("0000H.png").convert_alpha()
 border_sprite = pygame.image.load("0000Border.png").convert_alpha()
@@ -37,11 +42,11 @@ grass_sprite_mask = pygame.mask.from_surface(grass_sprite)
 
 height_map = [
     [0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 1, 0],
     [0, 1, 0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 1, 0],
     [0, 0, 0, 0, 0, 0, 0],
 ]
 

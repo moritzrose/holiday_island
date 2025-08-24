@@ -1,15 +1,8 @@
 # This class provides methods to load specific sprite collections like water sprites, sand sprites, plant sprites
 # Every sprite can be referenced by a unique key. The tile sprites are identifiable by their edge direction starting at the top left
 # Example: 1 -1 0 0: tl edge goes up, tr edge goes down, rest stays on one height level, therefore this is a sprite that has its top corner one
-# terrain level higher compared to the other cornersimport pygame
-
+# terrain level higher compared to the other corners
 import pygame
-
-def load_masks(sprite_collection):
-    masks = dict()
-
-    for sprite in sprite_collection:
-        masks[] =
 
 # terrain
 
@@ -149,6 +142,27 @@ def load_grass_tiles():
         "1-1-11": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-1-11.png").convert_alpha()},
         "-1-111": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1-111.png").convert_alpha()},
         "-111-1": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-111-1.png").convert_alpha()},
+
+        # basic masks
+        "0000M": {"mask": pygame.mask.from_surface(grass_tiles.get("0000").get("sprite"))},
+        "1-100M": {"mask": pygame.image.load("../resources/tiles/grass/basic/1-100.png").convert_alpha()},
+        "01-10M": {"mask": pygame.image.load("../resources/tiles/grass/basic/01-10.png").convert_alpha()},
+        "001-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/001-1.png").convert_alpha()},
+        "-1001M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1001.png").convert_alpha()},
+        "10-10M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/10-10.png").convert_alpha()},
+        "-1010M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1010.png").convert_alpha()},
+        "010-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/010-1.png").convert_alpha()},
+        "0-101M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0-101.png").convert_alpha()},
+        "100-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/100-1.png").convert_alpha()},
+        "-1100M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1100.png").convert_alpha()},
+        "0-110M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/0-110.png").convert_alpha()},
+        "00-11M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/00-11.png").convert_alpha()},
+        "1-11-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-11-1.png").convert_alpha()},
+        "-11-11M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-11-11.png").convert_alpha()},
+        "11-1-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/11-1-1.png").convert_alpha()},
+        "1-1-11M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/1-1-11.png").convert_alpha()},
+        "-1-111M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-1-111.png").convert_alpha()},
+        "-111-1M": {"sprite": pygame.image.load("../resources/tiles/grass/basic/-111-1.png").convert_alpha()},
 
         # variation a
         "0000a": {"sprite": pygame.image.load("../resources/tiles/grass/a/0000.png").convert_alpha()},
