@@ -5,11 +5,13 @@
 
 import pygame
 
-def load_masks(sprite_collection):
+def load_masks(sprite_collection :dict[str, dict]):
     masks = dict()
 
-    for sprite in sprite_collection:
-        masks[] =
+    for key, sprite in sprite_collection.items():
+        masks[key+"M"] = pygame.mask.from_surface(sprite.get("sprite"))
+
+    return masks
 
 # terrain
 
