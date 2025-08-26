@@ -18,27 +18,31 @@ class App:
 
         # Mouse
         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-        pygame.event.set_grab(True)
+        pygame.event.set_grab(False)
 
         # Screen
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+        # Game
+        self.game = Game(screen)
+
+
         # Service Registry - contains singletons of all components
-        self.service_registry = ServiceRegistry()
+        #self.service_registry = ServiceRegistry()
 
         # asset manager
-        self.asset_manager = AssetManager()
+        #self.asset_manager = AssetManager()
         # Camera
-        self.camera = self.service_registry.camera
+        #self.camera = self.service_registry.camera
 
         # Cursor
-        self.cursor = self.service_registry.cursor
+        #self.cursor = self.service_registry.cursor
 
         # World Renderer
-        self.world_renderer = self.service_registry.world_renderer
-        self.world_renderer.set_screen(self.screen)
+        #self.world_renderer = self.service_registry.world_renderer
+        #self.world_renderer.set_screen(self.screen)
 
-        self.running = True
+        #self.running = True
 
     def run(self):
 
@@ -73,4 +77,4 @@ class App:
 
 if __name__ == "__main__":
     app = App()
-    app.run()
+    app.game.run()

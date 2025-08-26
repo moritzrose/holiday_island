@@ -1,7 +1,7 @@
 from noise import pnoise2
 import matplotlib.pyplot as plt
 
-from src.game_configuration import WORLD_SEED, SHOW_HEIGHT_DISTRIBUTION
+from src.game_configuration import SHOW_HEIGHT_DISTRIBUTION
 from src.game_constants import MAX_TERRAIN_LEVEL
 
 
@@ -30,24 +30,20 @@ def clamp(value, min_value, max_value):
     else:
         return value
 
+    def generate_heightmap(seed):
 
-class HeightMapGenerator:
-
-    def __init__(self, h_tiles, v_tiles):
-        # corner-grid-dimensions:
-        self.h_corners = h_tiles + 1
-        self.v_corners = v_tiles + 1
+        # corner-grid-dimensions - 200 tiles = 201 corners:
+        h_corners = h_tiles + 1
+        v_corners = v_tiles + 1
 
         # init 2d array with -1 for debug purposes
-        self.height_map = [[-1 for x in range(self.h_corners)] for y in range(self.v_corners)]
+        height_map = [[-1 for x in range(h_corners)] for y in range(v_corners)]
 
-    def generate_heightmap(self):
-
-        for v in range(self.v_corners):
-            for h in range(self.h_corners):
+        for v in range(v_corners):
+            for h in range(h_corners):
 
                 # calculate noise value
-                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=WORLD_SEED)
+                noise_val = pnoise2(h * 0.03, v * 0.03, octaves=15, persistence=0.4, base=seed)
 
                 # normalize noise value to interval 0 - 1
                 normalized_noise_val = (noise_val + 1) * 0.5
@@ -56,39 +52,42 @@ class HeightMapGenerator:
                 height_value = transform_noise_to_height(normalized_noise_val)
 
                 # add height value to height map
-                self.height_map[v][h] = height_value
+                height_map[v][h] = height_value
 
-        self.flatten_jumps()
+        # flatten any height jumps > 1 between adjacent corners
+        height_map_flattened = flatten_jumps(h_corners, v_corners, height_map)
 
         if SHOW_HEIGHT_DISTRIBUTION:
-            self.show_height_distribution()
+            show_height_distribution()
 
-        return self.height_map
+        return height_map_flattened
 
     # flattens height jumps > 1
-    def flatten_jumps(self):
+    def flatten_jumps(h_corners, v_corners, height_map):
 
-        for v in range(self.v_corners):
-            for h in range(self.h_corners):
+        for v in range(v_corners):
+            for h in range(h_corners):
 
-                height = self.height_map[v][h]
+                height = height_map[v][h]
                 min_height = max(height - 1, 0)
-                max_height = min(height + 1, 6)
+                max_height = min(height + 1, MAX_TERRAIN_LEVEL)
 
-                if v < self.v_corners - 1:
-                    v_neighbour = self.height_map[v + 1][h]
+                if v < v_corners - 1:
+                    v_neighbour = height_map[v + 1][h]
                     if v_neighbour > max_height or v_neighbour < min_height:
                         v_neighbour = clamp(v_neighbour, min_height, max_height)
-                        self.height_map[v + 1][h] = v_neighbour
-                if h < self.v_corners - 1:
-                    h_neighbour = self.height_map[v][h + 1]
+                        height_map[v + 1][h] = v_neighbour
+                if h < v_corners - 1:
+                    h_neighbour = height_map[v][h + 1]
                     if h_neighbour > max_height or h_neighbour < min_height:
                         h_neighbour = clamp(h_neighbour, min_height, max_height)
-                        self.height_map[v][h + 1] = h_neighbour
+                        height_map[v][h + 1] = h_neighbour
+
+        return height_map
 
     # helper method to show height distribution statistic
-    def show_height_distribution(self):
-        werte = [val for row in self.height_map for val in row]  # flatten
+    def show_height_distribution(height_map):
+        werte = [val for row in .height_map for val in row]
         plt.hist(werte, bins=30)  # 30 Balken im Histogramm
         plt.title('Verteilung der Heightmap-Werte')
         plt.xlabel('Wert')
