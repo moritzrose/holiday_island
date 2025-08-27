@@ -14,7 +14,6 @@ from src.renderer.terrain_renderer import TerrainRenderer
 from src.renderer.ui_renderer import UIRenderer
 from src.renderer.vegetation_renderer import VegetationRenderer
 
-
 class Game:
     def __init__(self,screen):
 
@@ -28,7 +27,7 @@ class Game:
 
         # staff
         self.asset_manager = AssetManager() # assets
-        self.landscaper = Landscaper(self.height_map) # terrain
+        self.landscaper = Landscaper(self.height_map, self.asset_manager) # terrain
         self.gardener = Gardener() # vegetation
         self.architect = Architect() # buildings
         self.designer = Designer() # UI

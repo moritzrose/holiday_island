@@ -3,7 +3,7 @@ import pygame
 from src.asset_manager import load_cheat_tiles
 from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, SHOW_INFO_BOX, MAP_WIDTH
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
-from src.utils import world_to_tile, calculate_tile_id
+from src.utils import calculate_tile_id
 
 RED = (255, 0, 0)
 

@@ -11,7 +11,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 # world size in tiles
-MAP_WIDTH = 14
+MAP_WIDTH = 10
 MAP_HEIGHT = 10
 
 # camera
