@@ -7,9 +7,9 @@ class BuildingRenderer:
         self.screen = screen
         self.architect = architect
 
-        # initialize world building surface
-        self.surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
-                                      pygame.SRCALPHA)
+        # initialize building surface
+        self.building_surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
+                                               pygame.SRCALPHA)
 
     def construct(self):
         # baue world surface
@@ -20,5 +20,6 @@ class BuildingRenderer:
         pass
 
     def render(self, camera_position):
-        # render world surface
-        pass
+
+        # render surface according to camera position
+        self.screen.blit(self.building_surface, (-camera_position.x, -camera_position.y))
