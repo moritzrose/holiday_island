@@ -38,5 +38,5 @@ class Camera:
             self.dy = 0
 
         # update camera position
-        self.position_world.x += self.dx
-        self.position_world.y += self.dy
+        self.position.x += self.dx
+        self.position.y += self.dy

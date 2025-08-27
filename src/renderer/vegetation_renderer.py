@@ -7,9 +7,9 @@ class VegetationRenderer:
         self.screen = screen
         self.gardener = gardener
 
-        # initialize world vegetation surface
-        self.surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
-                                      pygame.SRCALPHA)
+        # initialize vegetation surface
+        self.vegetation_surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
+                                                 pygame.SRCALPHA)
 
     def construct(self):
         # baue world surface
@@ -20,5 +20,6 @@ class VegetationRenderer:
         pass
 
     def render(self, camera_position):
-        # render world surface
-        pass
+
+        # render surface according to camera position
+        self.screen.blit(self.vegetation_surface, (-camera_position.x, -camera_position.y))

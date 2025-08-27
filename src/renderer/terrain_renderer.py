@@ -7,6 +7,7 @@ class TerrainRenderer:
     def __init__(self, screen, landscaper):
         self.screen = screen
         self.landscaper = landscaper
+        self.is_clean = False
 
         # initialize world terrain surface
         self.surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),

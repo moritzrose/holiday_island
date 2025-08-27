@@ -15,10 +15,10 @@ from src.renderer.ui_renderer import UIRenderer
 from src.renderer.vegetation_renderer import VegetationRenderer
 
 class Game:
-    def __init__(self,screen):
+    def __init__(self, screen):
 
         # basics
-        self.seed = 49 #42
+        self.seed = 49  # 42
         self.camera = Camera()
         self.cursor = Cursor()
 
@@ -40,11 +40,11 @@ class Game:
         # 90–99 → GUI / HUD
         # 100+ → Debug, Developer-Overlays
         self.renderers = [
-        (0, TerrainRenderer(screen, self.landscaper)),
-        (10, VegetationRenderer(screen, self.gardener)),
-        (20, BuildingRenderer(screen, self.architect)),
-        (90, UIRenderer(screen, self.designer)),
-        (100, DebugRenderer(screen, self.debugger))
+            (0, TerrainRenderer(screen, self.landscaper)),
+            (10, VegetationRenderer(screen, self.gardener)),
+            (20, BuildingRenderer(screen, self.architect)),
+            (90, UIRenderer(screen, self.designer)),
+            (100, DebugRenderer(screen, self.debugger))
         ]
 
         self.renderers.sort(key=lambda x: x[0])
@@ -52,7 +52,6 @@ class Game:
         # construct world surface
         for _, r in sorted(self.renderers, key=lambda x: x[0]):
             r.construct()
-
 
     # handle game events
     def handle_event(self, event):
@@ -63,20 +62,18 @@ class Game:
         pass
 
         # update cursor position
-        #self.cursor.update(screen)
+        # self.cursor.update(screen)
 
         # update camera position
-        #self.camera.update()
+        # self.camera.update()
 
         # render map
-        #self.world_renderer.render_world()
+        # self.world_renderer.render_world()
 
         # update display
-        #pygame.display.update()
+        # pygame.display.update()
 
     # render all surfaces
     def render(self):
         for _, renderer in sorted(self.renderers, key=lambda x: x[0]):
             renderer.render(self.camera.position)
-
-

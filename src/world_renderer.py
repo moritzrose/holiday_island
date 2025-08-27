@@ -2,7 +2,6 @@ import pygame
 import random
 
 from src.asset_manager import load_water_tiles, load_sand_tiles, load_grass_tiles, load_sand_grass_tiles
-from src.camera import Camera
 
 from collections import Counter
 from src.game_configuration import MAP_WIDTH, MAP_HEIGHT, DEBUG_TILES, SCREEN_WIDTH, SCREEN_HEIGHT
@@ -41,7 +40,7 @@ def apply_variation(tile_id):
 
 class WorldRenderer:
 
-    def __init__(self, service_registry):
+    def __init__(self, service_registry, seed):
 
         # load height map and tiles
         self.screen = None
@@ -111,20 +110,6 @@ class WorldRenderer:
     def set_screen(self, screen):
         self.screen = screen
 
-    def calculate_tile_id(self, grid_x, grid_y):
-        tl = self.height_map[grid_y + 1][grid_x]
-        tr = self.height_map[grid_y][grid_x]
-        br = self.height_map[grid_y][grid_x + 1]
-        bl = self.height_map[grid_y + 1][grid_x + 1]
-        height_values = [tl, tr, br, bl]
-
-        tile_id = (
-                str(height_values[1] - height_values[0]) +  # tr - tl
-                str(height_values[2] - height_values[1]) +  # br - tr
-                str(height_values[3] - height_values[2]) +  # bl - br
-                str(height_values[0] - height_values[3])  # tl - bl
-        )
-        return tile_id
 
     def render_world(self):
 
