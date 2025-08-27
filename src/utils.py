@@ -1,3 +1,5 @@
+from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+
 
 OFFSET_X = 5
 OFFSET_Y = 1

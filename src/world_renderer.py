@@ -5,10 +5,10 @@ from src.asset_manager import load_water_tiles, load_sand_tiles, load_grass_tile
 from src.camera import Camera
 
 from collections import Counter
-from height_map_generator import HeightMapGenerator
 from src.game_configuration import MAP_WIDTH, MAP_HEIGHT, DEBUG_TILES, SCREEN_WIDTH, SCREEN_HEIGHT
 from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
 from src.game_constants import ELEVATION_OFFSET
+from src.height_map_generator import generate_heightmap
 from src.utils import tile_to_world, calculate_tile_id
 
 MORE_SAND_SUFFIX = "S"
@@ -45,8 +45,7 @@ class WorldRenderer:
 
         # load height map and tiles
         self.screen = None
-        self.height_map_generator = HeightMapGenerator(MAP_WIDTH, MAP_HEIGHT)
-        self.height_map = self.height_map_generator.generate_heightmap()
+        self.height_map = generate_heightmap(seed, MAP_WIDTH, MAP_HEIGHT)
 
         # load tile surfaces
         self.water_tiles = load_water_tiles()

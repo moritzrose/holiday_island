@@ -1,16 +1,34 @@
+from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
+from src.height_map_generator import generate_heightmap
+from src.camera import Camera
+from src.cursor import Cursor
+from src.staff.asset_manager import AssetManager
+from src.staff.landscaper import Landscaper
+from src.staff.gardener import Gardener
+from src.staff.architect import Architect
+from src.staff.designer import Designer
+from src.staff.debugger import Debugger
+from src.renderer.building_renderer import BuildingRenderer
+from src.renderer.debug_renderer import DebugRenderer
+from src.renderer.terrain_renderer import TerrainRenderer
+from src.renderer.ui_renderer import UIRenderer
+from src.renderer.vegetation_renderer import VegetationRenderer
+
+
 class Game:
     def __init__(self,screen):
 
         # basics
         self.seed = 49 #42
-        self.clock = pygame.time.Clock()
-        self.height_map = generate_heightmap(seed)
         self.camera = Camera()
         self.cursor = Cursor()
 
+        # map settings
+        self.height_map = generate_heightmap(self.seed, MAP_WIDTH, MAP_HEIGHT)
+
         # staff
         self.asset_manager = AssetManager() # assets
-        self.landscaper = LandScaper(self.height_map) # terrain
+        self.landscaper = Landscaper(self.height_map) # terrain
         self.gardener = Gardener() # vegetation
         self.architect = Architect() # buildings
         self.designer = Designer() # UI
@@ -33,32 +51,33 @@ class Game:
         self.renderers.sort(key=lambda x: x[0])
 
         # construct world surface
-        for _, renderer in self.renderers:
-            renderer.construct()
+        for _, r in sorted(self.renderers, key=lambda x: x[0]):
+            r.construct()
 
-    def run(self):
 
-        running = True
+    # handle game events
+    def handle_event(self, event):
+        pass
 
-        while running:
+    # update game logic
+    def update(self, dt):
+        pass
 
-            # event handler
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+        # update cursor position
+        #self.cursor.update(screen)
 
-            # update background
-            self.screen.fill(BG)
+        # update camera position
+        #self.camera.update()
 
-            # construct world surface
-            for _, renderer in self.renderers:
-                renderer.render()
+        # render map
+        #self.world_renderer.render_world()
 
-            # update display
-            pygame.display.update()
+        # update display
+        #pygame.display.update()
 
-            # set frame rate
-            self.clock.tick(60)
+    # render all surfaces
+    def render(self):
+        for _, renderer in sorted(self.renderers, key=lambda x: x[0]):
+            renderer.render(self.camera.position)
 
-        pygame.quit()
 

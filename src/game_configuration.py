@@ -10,7 +10,7 @@ WORLD_SEED = 49 #42
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-# world map tiles
+# world size in tiles
 MAP_WIDTH = 14
 MAP_HEIGHT = 10
 

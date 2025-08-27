@@ -1,10 +1,14 @@
+import pygame
+from src.game_configuration import MAP_WIDTH, MAP_HEIGHT
+from src.game_constants import REFERENCE_TILE_WIDTH, REFERENCE_TILE_HEIGHT
+
 class DebugRenderer:
     def __init__(self,screen, debugger):
         self.screen = screen
         self.debugger = debugger
 
         # initialize world terrain surface
-        self.surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT),
+        self.surface = pygame.Surface((MAP_WIDTH * REFERENCE_TILE_WIDTH, MAP_HEIGHT * REFERENCE_TILE_HEIGHT),
                                       pygame.SRCALPHA)
 
     def construct(self):

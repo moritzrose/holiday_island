@@ -10,7 +10,7 @@ RED = (255, 0, 0)
 
 class Cursor:
 
-    def __init__(self, service_registry):
+    def __init__(self):
         # if I ever want to add one
         self.icon = None
 
@@ -27,15 +27,15 @@ class Cursor:
         self.world_y = None
 
         # camera, to calculate world coordinates
-        self.camera = service_registry.camera
+        #self.camera = service_registry.camera
 
         # world height map to calculate correct tile coordinates
-        self.world_renderer = service_registry.world_renderer
+        #self.world_renderer = service_registry.world_renderer
 
         # gardener, to get vegetation info
-        self.gardener = service_registry.gardener
+        #self.gardener = service_registry.gardener
 
-        self.cheat_tiles = load_cheat_tiles()
+        #self.cheat_tiles = load_cheat_tiles()
 
         # architect, to get building info TODO add architect
         # self.architect = role_registry.architect

@@ -1,7 +1,7 @@
 import pygame
 
+from src.game import Game
 from src.game_configuration import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
-from src.service_registry import ServiceRegistry
 
 # background colour
 BG = (50, 50, 50)
@@ -24,8 +24,10 @@ class App:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         # Game
-        self.game = Game(screen)
+        self.game = Game(self.screen)
 
+        # Clock
+        self.clock = pygame.time.Clock()
 
         # Service Registry - contains singletons of all components
         #self.service_registry = ServiceRegistry()
@@ -42,39 +44,34 @@ class App:
         #self.world_renderer = self.service_registry.world_renderer
         #self.world_renderer.set_screen(self.screen)
 
-        #self.running = True
+        self.running = True
 
     def run(self):
 
-        clock = pygame.time.Clock()
-
         while self.running:
-
-            # set frame rate - no clue what is actually does TODO
-            clock.tick(60)
 
             # event handler
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                else:
+                    if hasattr(self.game, "handle_event"):
+                        self.game.handle_event(event)
+
+            # set frame rate
+            dt_ms = self.clock.tick(60)
+            dt = dt_ms / 1000
+
+            # update game state
+            self.game.update(dt)
 
             # update background
             self.screen.fill(BG)
-
-            # update cursor position
-            self.cursor.update(screen)
-
-            # update camera position
-            #self.camera.update()
-
-            # render map
-            self.world_renderer.render_world()
-
-            # update display
-            pygame.display.update()
+            self.game.render()
+            pygame.display.flip()
 
         pygame.quit()
 
 if __name__ == "__main__":
     app = App()
-    app.game.run()
+    app.run()

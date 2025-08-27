@@ -1,3 +1,3 @@
 class Architect:
-    def __init__(self, screen):
+    def __init__(self):
         pass
